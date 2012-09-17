@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+{% block title %}Registration{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+
+    <link href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+
+      div.notice span {font-family:宋体;line-height:1.5;font-size:14px;}
+      div.notice p {white-space:normal;}
+    </style>
+    <ink href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://pymis.njtu.edu.cn/site_media/css/auth.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/ico/apple-touch-icon-57-precomposed.png"> 
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/jquery.js"></script>
+  </head>
+
+  <body>
+    <div class="right_cloud"></div>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#" style="color:#FFFFFF"><strong>北京交通大学管理信息系统</strong></a>
+          <div class="nav-collapse">
+            
+            <ul class="nav pull-right">
+              <li><a href="/master_recommend/signin/" class="fontsize1" style="color:#FFFFFF"></a></li>
+              <li><a href="/master_recommend/register/" class="fontsize1" style="color:#FFFFFF"></a></li>
+            </ul>
+            
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+      
+
+
+
+    <div class="container" id="main">
+    	{% block content %}{%endblock content%}
+      <footer class="footer">
+      <p><a href="http://www.bjtu.edu.cn" target="_blank">北京交通大学主页</a> | <a href="http://ic.bjtu.edu.cn" target="_blank">信息中心主页</a></p>
+    <p align="left" style="text-align:center;text-indent:23.25pt;">
+  <span style="font-size:12.0pt;line-height:150%;font-family:宋体;"><span style="font-size:12px;">咨询电话：</span><span><span style="font-size:12px;">010-51688446 51688476（</span><span style="font-size:12px;">）</span></span></span> 
+</p>
+<p align="left" style="text-align:center;text-indent:23.25pt;">
+  <span style="font-family:宋体;font-size:12pt;line-height:150%;text-indent:23.25pt;"><span style="font-size:12px;">查号台电话：</span><span style="white-space:normal;font-size:12px;">010-51682222</span><span style="font-size:12px;">（北京交通大学查号台</span><span style="font-size:12px;">）</span></span> 
+</p>
+      </footer>
+
+  <footer>
+    <p><a class="top" href="#" title="Back to top">Top</a></p>
+  </footer>
+    </div> <!-- /container -->
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.top').addClass('hidden');
+  $.waypoints.settings.scrollThrottle = 100;
+  $('#main').waypoint(function(event, direction) {
+    $('.top').toggleClass('hidden', direction === "up");
+  }, {
+    offset: '-30%'
+  }).find('#sub').waypoint(function(event, direction) {
+    $(this).toggleClass('subnav-fixed', direction === "down");
+    event.stopPropagation();
+  });
+});
+</script>
+    <!-- Le javascript
+    ================================================== -->
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/jquery-ui/jquery.ui.datepicker-zh-CN.js"></script> 
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/jquery/jquery.validate-1.8.0.min.js"></script> 
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/jquery/jquery.validate.messages_cn.js"></script> 
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-transition.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-alert.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-modal.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-dropdown.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-scrollspy.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-tab.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-tooltip.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-popover.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-button.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-collapse.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-carousel.js"></script>
+    <script src="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/js/bootstrap-typeahead.js"></script>
+  </body>
+</html>

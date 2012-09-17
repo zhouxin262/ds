@@ -1,0 +1,54 @@
+{% extends "registration/base_registration.html" %}
+
+
+{% block title %}Logged out{% endblock %}
+{% block body_class %}{{ block.super }} logout{% endblock %}
+
+
+{% block content_title %}
+  
+{% endblock %}
+
+
+{% block content %}
+<div class="main">     
+    <form class="form-horizontal" name="loginform" id="loginform" action="" method="POST">
+      <fieldset>
+        <legend>退出系统</legend>        <div class="signin_left">
+
+  <p>您已经成功退出系统，</p> 
+  <p>如有需要，在右边重新登录。</p> 
+        </div>
+        {%csrf_token%}
+        <div class="signin_right">
+            <div class="control-group">
+            <label class="signin-control-label" for="">&nbsp;</label>
+              <div class="signin-controls">
+                <a class="btn btn-warning" href="#"><i class="icon-user icon-white"></i>  用  户  登  录</a>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="signin-control-label" for="id_username">用户名</label>
+              <div class="signin-controls">
+                <input type="text" class="input-large" name="username" id="id_username">
+                <p class="help-block">用户名是工资号</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="signin-control-label" for="id_password">密码</label>
+              <div class="signin-controls">
+                <input type="password" class="input-large" name="password" id="id_password">
+              </div>
+            </div>
+            <div class="control-group">
+            <label class="signin-control-label" for="">&nbsp;</label>
+              <div class="signin-controls">
+                <input class="btn btn-primary" data-loading-text="请等待..." type="submit" value="登录">
+                <!--        <a class="btn btn-inverse" href="#">忘记密码？</a> -->
+              </div>
+            </div>
+    	</div>
+      </fieldset>
+    </form>
+</div>
+{% endblock %}
