@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -38,150 +37,39 @@ $('#home').addClass('select');
     <div class="self-nav">
       <div class="self-info clearfix">
         <div class="head-pic"> <a href="{{ STATIC_URL }}img/default_avatar.png"> <img src="{{ STATIC_URL }}img/default_avatar.png" alt="" /> </a> </div> 
-        <div class="welcom"> <span>欢迎 {{user}} 老师！</span><!-- <span>上次登录IP：<b> 202.112.154.187 </b></span> <span>上次登录时间：<b> 2012-09-17 </b></span> --></div>
+        <div class="welcom"> <span>欢迎 {{user.first_name}} 老师！</span><!-- <span>上次登录IP：<b> 202.112.154.187 </b></span> <span>上次登录时间：<b> 2012-09-17 </b></span> --></div>
       </div>
-      <ul class="clearfix">
-        
-            <li><a href="/module/module/41/" target="_blank">学生信息系统</a></li>
-    
-            <li><a href="/module/module/42/" target="_blank">研究生信息系统</a></li>
-    
-            <li><a href="/module/module/43/" target="_blank">思源教学平台</a></li>
-    
-            <li><a href="/module/module/44/" target="_blank">短信平台</a></li>
-    
-            <li><a href="/module/module/45/" target="_blank">网络电话</a></li>
-    
-            <li><a href="/module/module/68/" target="_blank">交大通</a></li>
-    
-            <li><a href="/module/module/46/" target="_blank">一卡通</a></li>
-    
-            <li><a href="/module/module/49/" target="_blank">电子邮件</a></li>
-    
-            <li><a href="/module/module/48/" target="_blank">微软正版软件</a></li>
-    
-            <li><a href="/module/module/52/" target="_blank">图书预约与续借</a></li>
-    
-            <li><a href="/module/module/47/" target="_blank">住宅建设与配售工作专栏</a></li>
-    
-            <li><a href="/module/module/56/" target="_blank">网络自助服务</a></li>
-    
-            <li><a href="/module/module/69/" target="_blank">信息化建设标准</a></li>
-    
-            <li><a href="/module/module/60/" target="_blank">2012职务评聘公示</a></li>
-    
-        
+      <ul class="clearfix">  
+            <li><a href="http://dispub.bjtu.edu.cn/cms/index.do" target="_blank">教学平台</a></li>    
+            <li><a href="http://202.112.157.145/cms/xyjj/index.htm" target="_blank">学院简介</a></li>  
+            <li><a href="http://202.112.157.145/cms/zcfg/index.htm" target="_blank">政策法规</a></li>  
+            <li><a href="http://202.112.157.145/cms/zszl/index.htm" target="_blank">招生专栏</a></li>  
+            <li><a href="http://202.112.157.145/cms/xwzd/index.htm" target="_blank">校外站点</a></li>  
+            <li><a href="http://202.112.157.145/cms/zcfw/index.htm" target="_blank">支持服务</a></li>  
+            <li><a href="http://202.112.157.145/cms/xxzn/index.htm" target="_blank">学习指南</a></li>  
+            <li><a href="http://202.112.157.145/cms/xsyd/index.htm" target="_blank">学生园地</a></li>  
+            <li><a href="http://202.112.157.131/cms" target="_blank">校友录</a></li>  
+            <li><a href="http://202.112.157.145/cms/xzyd/index.htm" target="_blank">下载园地</a></li>  
+            <li><a href="http://202.112.157.145/cms/tszy/index.htm" target="_blank">特色资源</a></li>  
       </ul>
     </div>
     <div class="content clearfix">
       <div class="main clearfix">
         
             <div class="main-box">
-            <h3>办公通知</h3>
-            <a href="/module/module/55/?bh=01" class="link-more" target="_blank"> >>更多</a>
-            <ul>
+            <h3>新闻点播</h3>
+            <a href="http://dispub.bjtu.edu.cn/cms/xwdb/index.htm" class="link-more" target="_blank"> >>更多</a>
+                      
+                {{news_list1|safe}}             
             
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15824" target="_blank">关于举办北京交通大学第九届青年教师教学基本功比赛的通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15821" target="_blank">关于召开各学院和主要职能部处信息安全工作会议的通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15801" target="_blank">干部任职公示公告</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15760" target="_blank">转发：北京市2012年公开选拔年轻处级领导干部公告</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15703" target="_blank">干部考察预告</a> </li>
-            
-            </ul>
             </div>
         
             <div class="main-box">
-            <h3>工作简报</h3>
-            <a href="/module/module/55/?bh=02" class="link-more" target="_blank"> >>更多</a>
-            <ul>
+            <h3>学院通知</h3>
+            <a href="http://dispub.bjtu.edu.cn/cms/xytz/index.htm" class="link-more" target="_blank"> >>更多</a>
+                 
+              {{news_list2|safe}} 
             
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15822" target="_blank">论文获奖讯息</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15780" target="_blank">我校团委书记秦思阳同志成功当选共青团北京市第十三届委员会委员</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15483" target="_blank">北京交通大学学生工作简报-2012年第5期</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15465" target="_blank">我校代表队获得首都教育系统教职工运动会田径趣味项目</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15464" target="_blank">信息中心党支部参观莱芜战役纪念馆</a> </li>
-            
-            </ul>
-            </div>
-        
-            <div class="main-box">
-            <h3>人事财务</h3>
-            <a href="/module/module/55/?bh=03" class="link-more" target="_blank"> >>更多</a>
-            <ul>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15720" target="_blank">2012年北京交通大学优秀教师/优秀教育工作者、智瑾奖优秀青年教师/优秀青年教育工作者获奖人选公示</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15682" target="_blank">2012专业技术职务晋升、岗位晋级工作通知（4）</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15621" target="_blank">2012年专业技术职务晋升、晋级评聘工作通知（2）</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15581" target="_blank">2012年专业技术职务岗位晋升、晋级评聘工作预通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15442" target="_blank">关于2012年交大优秀教师、智瑾奖、三育人先进集体、个人评选工作的通知</a> </li>
-            
-            </ul>
-            </div>
-        
-            <div class="main-box">
-            <h3>教学科研</h3>
-            <a href="/module/module/55/?bh=05" class="link-more" target="_blank"> >>更多</a>
-            <ul>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15544" target="_blank">关于2012年度本科毕业生提交印刷本和电子版学位论文的通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15504" target="_blank">我校开展2012年“3+1+2”产学联合人才培养试点工作</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15482" target="_blank">关于期末考试使用校园一卡通考试监管系统的通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15461" target="_blank">关于公布北京交通大学2012年大学生创新创业训练计划项目的通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15165" target="_blank">国家级教学名师阮秋琦教授公开课通知</a> </li>
-            
-            </ul>
-            </div>
-        
-            <div class="main-box">
-            <h3>公共服务</h3>
-            <a href="/module/module/55/?bh=07" class="link-more" target="_blank"> >>更多</a>
-            <ul>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15542" target="_blank">请持通行卡和一卡通的车主到保卫处102室领取临时通行证！</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15540" target="_blank">交大体育部暑假游泳培训班开始报名了</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15500" target="_blank">校医院两癌筛查通知（以此为准）</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15494" target="_blank">“高雅艺术进校园”系列活动之敦善室内铜管乐团专场演出</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15490" target="_blank">2012年交大游泳场开放通知</a> </li>
-            
-            </ul>
-            </div>
-        
-            <div class="main-box">
-            <h3>学术会议及讲座</h3>
-            <a href="/module/module/55/?bh=08" class="link-more" target="_blank"> >>更多</a>
-            <ul>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15503" target="_blank">计算机学院“与大师面对面”名师讲坛通知</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15492" target="_blank">美国俄亥俄州立大学王瑾博士名师讲坛</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15488" target="_blank">2012年6月8日名师讲坛活动预告：我国绿色建筑发展现状与展望</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15486" target="_blank">“院士校园行”名师讲坛预告</a> </li>
-            
-            <li class="clearfix"> <span></span> <a href="/module/module/54/?bh=15207" target="_blank">王浩院士做客北京交通大学“院士校园行”名师讲坛</a> </li>
-            
-            </ul>
             </div>
         
       </div>
@@ -190,60 +78,8 @@ $('#home').addClass('select');
         
         <div class="side-box">
           <h3>财务信息查询</h3>
-          <ul>
-            
-            <li><a href="/gongzi/" target="_blank">个人工资查询</a></li>
-            
-            <li><a href="/module/module/8/" target="_blank">银行代发查询</a></li>
-            
-            <li><a href="/module/module/9/" target="_blank">办公经费查询</a></li>
-            
-            <li><a href="/module/module/10/" target="_blank">科研经费查询</a></li>
-            
-            <li><a href="/module/module/66/" target="_blank">基金项目查询</a></li>
-            
-          </ul>
-        </div>
-        <div class="side-box">
-          <h3>科技处信息系统</h3>
-          <ul>
-            
-            <li><a href="/module/module/13/" target="_blank">科研信息系统</a></li>
-            
-          </ul>
-        </div>
-        <div class="side-box">
-          <h3>办公信息系统</h3>
-          <ul>
-            
-            <li><a href="/module/module/59/" target="_blank">办公自动化系统</a></li>
-            
-            <li><a href="/module/module/4/" target="_blank">校园信息</a></li>
-            
-          </ul>
-        </div>
-        <div class="side-box">
-          <h3>信息服务</h3>
-          <ul>
-            
-            <li><a href="/module/module/28/" target="_blank">邮件帐号查询</a></li>
-            
-            <li><a href="/module/module/35/" target="_blank">电话号码查询</a></li>
-            
-            <li><a href="/module/module/26/" target="_blank">教职工健康状况查询</a></li>
-            
-          </ul>
-        </div>
-        <div class="side-box">
-          <h3>工作日志</h3>
-          <ul>
-            
-            <li><a href="/module/module/54?bh=15820"  target="_blank">第一周工作日志及学术活动安排</a></li>
-            
-            <li><a href="/module/module/54?bh=15560"  target="_blank">第二十周工作日志及学术活动安排</a></li>
-            
-            <li><a href="/module/module/54?bh=15541"  target="_blank">第十九周工作日志及学术活动安排</a></li>
-            
+          <ul>            
+            <li><a href="/gongzi/" target="_blank">个人工资查询</a></li>          
           </ul>
         </div>
         </div>

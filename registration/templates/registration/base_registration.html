@@ -2,8 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>
-{% block title %}Registration{% endblock %}</title>
+    <title>{% block title %}注册{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,7 +18,7 @@
       div.notice span {font-family:宋体;line-height:1.5;font-size:14px;}
       div.notice p {white-space:normal;}
     </style>
-    <ink href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://pymis.njtu.edu.cn/site_media/lib/bootstrap-2.0.4/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="http://pymis.njtu.edu.cn/site_media/css/auth.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -45,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#" style="color:#FFFFFF"><strong>北京交通大学管理信息系统</strong></a>
+          <a class="brand" href="#" style="color:#FFFFFF"><strong>远程学院管理信息系统</strong></a>
           <div class="nav-collapse">
             
             <ul class="nav pull-right">
@@ -64,13 +63,9 @@
     <div class="container" id="main">
     	{% block content %}{%endblock content%}
       <footer class="footer">
-      <p><a href="http://www.bjtu.edu.cn" target="_blank">北京交通大学主页</a> | <a href="http://ic.bjtu.edu.cn" target="_blank">信息中心主页</a></p>
-    <p align="left" style="text-align:center;text-indent:23.25pt;">
-  <span style="font-size:12.0pt;line-height:150%;font-family:宋体;"><span style="font-size:12px;">咨询电话：</span><span><span style="font-size:12px;">010-51688446 51688476（</span><span style="font-size:12px;">）</span></span></span> 
-</p>
-<p align="left" style="text-align:center;text-indent:23.25pt;">
-  <span style="font-family:宋体;font-size:12pt;line-height:150%;text-indent:23.25pt;"><span style="font-size:12px;">查号台电话：</span><span style="white-space:normal;font-size:12px;">010-51682222</span><span style="font-size:12px;">（北京交通大学查号台</span><span style="font-size:12px;">）</span></span> 
-</p>
+      <p align="center">
+        <a href="http://www.bjtu.edu.cn" target="_blank">北京交通大学主页</a> | <a href="http://dis.bjtu.edu.cn" target="_blank">远程学院主页</a>
+      </p> 
       </footer>
 
   <footer>
