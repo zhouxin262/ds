@@ -6,6 +6,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'ds.views.home', name='home'),
+    url(r'^user/add/$', 'ds.views.adduser', name='adduser'),
+    url(r'^user/list/$', 'ds.views.listuser', name='listuser'),
+    url(r'^user/(?P<id>\d+)/del/$', 'ds.views.deluser', name='deluser'),
+    url(r'^user/(?P<id>\d+)/edit/$', 'ds.views.edituser', name='edituser'),
+
 	(r'^gongzi/', include('gongzi.urls')),
 	(r'^accounts/', include('registration.backends.default.urls')),
     

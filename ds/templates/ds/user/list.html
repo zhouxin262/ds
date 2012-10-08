@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户管理</title>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="row">
+                <img name="rk_r1_c1" src="http://dis.bjtu.edu.cn/images/rk_r1_c1.jpg" width="126" height="110" border="0" alt="">
+                <img name="rk_r1_c2" src="http://dis.bjtu.edu.cn/images/rk_r1_c2.jpg" width="469" height="110" border="0" alt="">
+            </div>
+            <div class="row" style="margin: 15px 0">
+                <div class="span2">
+                    <div class="well" style="padding: 8px 0">
+                        <ul class="nav nav-list">
+                          <li class="nav-header">用户管理</li>
+                          <li class="active"><a href="/user/list/">用户列表</a></li>
+                          <li><a href="/user/add/">添加用户</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span9">
+                    <div class="pull-right" style="margin-top:3px">
+                        <form class="form-search">
+                            <div class="input-append">
+                                <input name="fn" type="text" class="span2 search-query">
+                                <button type="submit" class="btn">查找</button>
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="breadcrumb">
+                      <li><a href="#">用户</a> <span class="divider">/</span></li>
+                      <li class="active">列表</li>
+                    </ul>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                证件
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                        {% for user in user_list %}
+                        <tr>
+                           <td>{{user.first_name}}</td>
+                           <td>{{user.username}}</td>
+                           <td><a href="/user/{{user.pk}}/edit/">修改</a> | <a href="/user/{{user.pk}}/del/" onclick="javascript:return confirm('您真的确实要删除【{{user.first_name}}】吗?');">删除</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="pagination pagination-right">
+                      <ul>
+                        {% if user_list.has_previous %}
+                        <li>
+                            <a href="?fn={{fn}}&page={{user_list.previous_page_number}}">上一页</a>
+                        </li>
+                        {% else %}
+                        <li class="disabled"><a>上一页</a></li>
+                        {% endif %}
+                        {% if user_list.has_next %}
+                        <li>
+                            <a href="?fn={{fn}}&page={{user_list.next_page_number}}">下一页</a>
+                        </li>
+                        {% else %}
+                        <li class="disabled"><a>下一页</a></li>
+                        {% endif %}
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</body>
+</html>

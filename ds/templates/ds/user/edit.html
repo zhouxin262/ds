@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户管理</title>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="row">
+                <img name="rk_r1_c1" src="http://dis.bjtu.edu.cn/images/rk_r1_c1.jpg" width="126" height="110" border="0" alt="">
+                <img name="rk_r1_c2" src="http://dis.bjtu.edu.cn/images/rk_r1_c2.jpg" width="469" height="110" border="0" alt="">
+            </div>
+            <div class="row" style="margin: 15px 0">
+                <div class="span2">
+                    <div class="well" style="padding: 8px 0">
+                        <ul class="nav nav-list">
+                          <li class="nav-header">用户管理</li>
+                          <li><a href="/user/list/">用户列表</a></li>
+                          <li class="active"><a href="/user/add/">添加用户</a></li>
+                        </ul>
+                    </div>
+                </div>
+                {%if post%}
+                <div class="span9 alert {%if err%}alert-error{%endif%}">                    
+                    {%if err%}
+                    {{err}}
+                    {%else%}
+                    用户修改成功
+                    {%endif%}
+                </div>
+                {%endif%}
+                <div class="span9">
+                    <ul class="breadcrumb">
+                      <li><a href="#">用户</a> <span class="divider">/</span></li>
+                      <li class="active">修改</li>
+                    </ul>
+                    <div class="">
+                    <form class="form-horizontal" method="post">
+                        {%csrf_token%}
+                      <div class="control-group">
+                        <label class="control-label">证件号码</label>
+                        <div class="controls">
+                          <input name="username" type="text" placeholder="工资号/身份证" value="{{u.username}}" disabled="disabled">
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">姓名</label>
+                        <div class="controls">
+                          <input name="first_name" type="text" placeholder="中文姓名" value="{{u.first_name}}">
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">密码</label>
+                        <div class="controls">
+                          <input name="password" type="text" placeholder="6位密码" value="{{u.password}}">
+                        </div>
+                      </div> 
+                      <div class="form-actions">
+                          <button type="submit" class="btn btn-primary">保存</button>
+                          <button type="reset" class="btn">重置</button>
+                        </div>                     
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</body>
+</html>
