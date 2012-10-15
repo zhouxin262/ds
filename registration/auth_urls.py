@@ -26,7 +26,7 @@ consult a specific backend's documentation for details.
 from django.conf.urls.defaults import *
 
 from django.contrib.auth import views as auth_views
-
+from registration.forms import EasyPasswordChangeForm
 
 urlpatterns = patterns('',
                        url(r'^login/$',
@@ -39,6 +39,7 @@ urlpatterns = patterns('',
                            name='auth_logout'),
                        url(r'^password/change/$',
                            auth_views.password_change,
+                           {'password_change_form': EasyPasswordChangeForm},
                            name='auth_password_change'),
                        url(r'^password/change/done/$',
                            auth_views.password_change_done,

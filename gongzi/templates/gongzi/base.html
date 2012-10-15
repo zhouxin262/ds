@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="generator" content="">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+	<title>{%block title%}{%endblock%}</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row-fluid" style="margin-top:50px;" >
+				{%block navbar%}
+				{%endblock navbar%}
+				{%block content%}
+				{%endblock content%}
+		</div>
+	</div>
+</body>
+</html>

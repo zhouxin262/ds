@@ -3,6 +3,7 @@ import xlrd
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.utils.encoding import smart_unicode
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from gongzi.models import Gongzi
 
@@ -47,7 +48,7 @@ def upload(request):
                     g.shuijin = smart_float(sheet.cell_value(j,6))
                     g.shifa = smart_float(sheet.cell_value(j,7))
                     g.xiangmu = sheet.cell_value(j,8)
-                    g.month = sheet.cell_value(j,0)
+                    g.month = month
                     g.year = year
                     g.dateline = datetime.date.today()
                     gs.append(g)
@@ -59,8 +60,10 @@ def upload(request):
                     #try:
                         g.save()
                     # except:
-                    #     pass           
-
+                    #     pass  
+        else:
+            err.append(u'表单每项都不能为空')         
+        return render(request, 'gongzi/upload.html', {'month': this_month, 'err': err, 'post': True})
     return render(request, 'gongzi/upload.html', {'month': this_month, 'err': err})
 
 def smart_float(f):
@@ -68,3 +71,40 @@ def smart_float(f):
         return float(f)
     except:
         return 0
+
+def list(request):
+    year = request.GET.get('year', '')
+    month = request.GET.get('month', '')
+    first_name = request.GET.get('first_name', '')
+    xiangmu = request.GET.get('xiangmu', '')
+    querystr = "year=%s&month=%s&first_name=%s&xiangmu=%s" % (year,month,first_name,xiangmu)
+    args = {}
+    print first_name
+    if year:
+        args['year'] = year
+    if month:
+        args['month'] = month
+    if first_name:
+        args['user__first_name__contains'] = first_name
+    if xiangmu:
+        args['xiangmu__contains'] = xiangmu
+    gongzi = Gongzi.objects.filter(**args)
+
+    paginator = Paginator(gongzi, 25)
+    page = request.GET.get('page')
+    try:
+        gongzi_list = paginator.page(page)
+    except PageNotAnInteger:
+        gongzi_list = paginator.page(1)
+    except EmptyPage:
+        gongzi_list = paginator.page(paginator.num_pages)
+    return render(request, 'gongzi/admin/list.html', {'gongzi_list': gongzi_list, 'querystr':querystr, "args":args})
+
+def view(request,id):
+    return render()
+
+def update(request,id):
+    return render()
+
+def delete(request,id):
+    return render()

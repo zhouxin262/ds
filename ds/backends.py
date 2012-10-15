@@ -12,7 +12,6 @@ class MingwenBackend(object):
     """
     
     def authenticate(self, username=None, password=None):
-        print password
         try:
             user = User.objects.get(username=username)
             if user.password == password:

@@ -31,7 +31,14 @@ def home(request):
     else:
         news_list1 = News.objects.filter(title = '新闻点播').order_by('-date')[0].content
         news_list2 = News.objects.filter(title = '学院通知').order_by('-date')[0].content
-        return render(request, 'ds/home.html', {'news_list1':news_list1,'news_list2':news_list2})
+        # 用户管理员
+        usermanagers = User.objects.filter(username__in = ['admin', 'zhouxin','430124198809180011'])
+        # 用户管理员
+        gongzimanagers = User.objects.filter(username__in = ['admin', 'zhouxin','430124198809180011'])
+        return render(request, 'ds/home.html', {'news_list1':news_list1,
+            'news_list2':news_list2, 
+            'usermanagers': usermanagers,
+            'gongzimanagers': gongzimanagers})
 
 def adduser(request):
     if request.method == "POST":

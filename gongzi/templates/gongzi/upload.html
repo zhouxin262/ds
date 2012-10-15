@@ -64,15 +64,21 @@
 					</div>
 				</form>
             </div>
+            {%if post%}
                 <div class="span8">
                 {%if err%}
                 {%for e in err%}
                 <p class="text-error">
                 {{e}}
-            </p>
+            	</p>
                 {%endfor%}
+                {%else%}
+                <p class='text-success'>
+                	上传成功
+                </p>
                 {%endif%}
                 </div>
+            {%endif%}
             </div>
 			</div>
 		</div>
