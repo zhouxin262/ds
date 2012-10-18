@@ -1,10 +1,12 @@
 #coding=utf-8
 import xlrd
+from datetime import datetime
+
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.utils.encoding import smart_unicode
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from gongzi.models import Gongzi
 
 def home(request):
@@ -63,8 +65,8 @@ def upload(request):
                     #     pass  
         else:
             err.append(u'表单每项都不能为空')         
-        return render(request, 'gongzi/upload.html', {'month': this_month, 'err': err, 'post': True})
-    return render(request, 'gongzi/upload.html', {'month': this_month, 'err': err})
+        return render(request, 'gongzi/admin/upload.html', {'month': this_month, 'err': err, 'post': True})
+    return render(request, 'gongzi/admin/upload.html', {'month': this_month, 'err': err})
 
 def smart_float(f):
     try:
@@ -88,7 +90,7 @@ def list(request):
         args['user__first_name__contains'] = first_name
     if xiangmu:
         args['xiangmu__contains'] = xiangmu
-    gongzi = Gongzi.objects.filter(**args)
+    gongzi = Gongzi.objects.filter(**args).order_by('-dateline')
 
     paginator = Paginator(gongzi, 25)
     page = request.GET.get('page')
@@ -100,11 +102,58 @@ def list(request):
         gongzi_list = paginator.page(paginator.num_pages)
     return render(request, 'gongzi/admin/list.html', {'gongzi_list': gongzi_list, 'querystr':querystr, "args":args})
 
-def view(request,id):
-    return render()
+def create(request):
+    args = {}
+    us = User.objects.exclude(username='admin')
+    args['us'] = us
+
+    if request.method == 'POST' and request.POST.get('user'):
+        args['post'] = True
+        gongzi = Gongzi()
+        u = User.objects.get(id = request.POST.get('user'))
+        gongzi.user = u
+        gongzi.year = request.POST.get('year', datetime.today().year)
+        gongzi.month = request.POST.get('month', datetime.today().month)
+        gongzi.xiangmu = request.POST.get('xiangmu', '')
+        gongzi.yingfa = request.POST.get('yingfa', 0)
+        gongzi.baoxian = request.POST.get('baoxian', 0)
+        gongzi.gongjijin = request.POST.get('gongjijin', 0)
+        gongzi.shuijin = request.POST.get('shuijin', 0)
+        gongzi.shifa = request.POST.get('shifa', 0)
+        gongzi.realname = u.first_name
+        gongzi.idcard = u.last_name
+        gongzi.dateline = datetime.now()
+        gongzi.save()
+        return render(request, 'gongzi/admin/create.html', args)
+    return render(request, 'gongzi/admin/create.html', args)
 
 def update(request,id):
-    return render()
+    args = {}
+    us = User.objects.exclude(username='admin')
+    args['us'] = us
+    gongzi = Gongzi.objects.get(id=id)
+    args['gongzi'] = gongzi
+
+    if request.method == 'POST':
+        args['post'] = True
+        u = User.objects.get(id = request.POST.get('user'))
+        gongzi.user = u
+        gongzi.year = request.POST.get('year')
+        gongzi.month = request.POST.get('month')
+        gongzi.xiangmu = request.POST.get('xiangmu')
+        gongzi.yingfa = request.POST.get('yingfa')
+        gongzi.baoxian = request.POST.get('baoxian')
+        gongzi.gongjijin = request.POST.get('gongjijin')
+        gongzi.shuijin = request.POST.get('shuijin')
+        gongzi.shifa = request.POST.get('shifa')
+        gongzi.realname = u.first_name
+        gongzi.idcard = u.last_name
+        gongzi.dateline = datetime.now()
+        gongzi.save()
+        return render(request, 'gongzi/admin/create.html', 
+            args)
+    return render(request, 'gongzi/admin/create.html', args)
 
 def delete(request,id):
-    return render()
+    Gongzi.objects.get(id=id).delete()
+    return HttpResponseRedirect('/gongzi/admin/list/')

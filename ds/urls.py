@@ -11,8 +11,9 @@ urlpatterns = patterns('',
     url(r'^user/(?P<id>\d+)/del/$', 'ds.views.deluser', name='deluser'),
     url(r'^user/(?P<id>\d+)/edit/$', 'ds.views.edituser', name='edituser'),
 
-	(r'^gongzi/', include('gongzi.urls')),
-	(r'^accounts/', include('registration.backends.default.urls')),
+    (r'^gongzi/', include('gongzi.urls')),
+    (r'^webstatus/', include('webstatus.urls')),
+	(r'^accounts/', include('registration.backends.simple.urls')),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

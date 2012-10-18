@@ -112,6 +112,8 @@ INSTALLED_APPS = (
     'ds',
     'registration',
     'gongzi',
+    'webstatus',
+    'bootstrap',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

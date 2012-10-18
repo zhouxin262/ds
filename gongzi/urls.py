@@ -7,10 +7,9 @@ from gongzi.models import Gongzi
 
 urlpatterns = patterns('',
     url(r'^$', 'gongzi.views.home', name='gongzi_home'),
-    url(r'^upload/$', 'gongzi.views.upload', name='gongzi_upload'),
+    url(r'^admin/upload/$', 'gongzi.views.upload', name='gongzi_upload'),
+    url(r'^admin/create/$',  'gongzi.views.create', name='gongzi_create'),
     url(r'^admin/list/$',  'gongzi.views.list', name='gongzi_list'),
-    url(r'^admin/(?P<id>\d+)/view/$',  'gongzi.views.view', name='gongzi_view'),
     url(r'^admin/(?P<id>\d+)/update/$',  'gongzi.views.update', name='gongzi_update'),
     url(r'^admin/(?P<id>\d+)/delete/$',  'gongzi.views.delete', name='gongzi_delete'),
-
 )

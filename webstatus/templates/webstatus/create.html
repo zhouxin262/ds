@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>状态记录</title>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/datepicker.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="row">
+                <img name="rk_r1_c1" src="http://dis.bjtu.edu.cn/images/rk_r1_c1.jpg" width="126" height="110" border="0" alt="">
+                <img name="rk_r1_c2" src="http://dis.bjtu.edu.cn/images/rk_r1_c2.jpg" width="469" height="110" border="0" alt="">
+            </div>
+            <div class="row" style="margin: 15px 0">
+                <div class="span2">
+                    <div class="well" style="padding: 8px 0">
+                        <ul class="nav nav-list">
+                          <li class="nav-header">状态记录</li>
+                          <li class="active"><a href="/webstatus/create/">添加状态</a></li>
+                          <li><a href="/webstatus/list/">状态列表</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span9">
+                    <ul class="breadcrumb">
+                      <li><a href="#">状态记录</a> <span class="divider">/</span></li>
+                      <li class="active">修改</li>
+                    </ul>                    
+                    {%if post%}
+                    <div class="alert {%if err%}alert-error{%endif%}">                    
+                        {%if err%}
+                        {{err}}
+                        {%else%}
+                        保存成功
+                        {%endif%}
+                    </div>
+                    {%endif%}
+                    <div class="">
+                      <form class="form-horizontal well" method="post">
+                          {%csrf_token%}
+                          {{form}}
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="reset" class="btn">重置</button>
+                          </div>                     
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+      $("#id_log_date").datepicker({"format":"yyyy-mm-dd"});
+    });</script>
+</body>
+</html>

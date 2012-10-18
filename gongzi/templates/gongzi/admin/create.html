@@ -1,0 +1,145 @@
+{% extends "gongzi/base.html" %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">工资管理</li>
+          <li><a href="/gongzi/admin/list/">工资列表</a></li>
+          <li class="active"><a href="/gongzi/admin/create/">添加工资</a></li>
+          <li><a href="/gongzi/admin/upload/">上传工资</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="#">工资</a> <span class="divider">/</span></li>
+      <li class="active">编辑</li>
+    </ul>
+	<div>
+        {%if post%}
+        <div class="alert {%if err%}alert-error{%endif%}">                    
+            {%if err%}
+            {{err}}
+            {%else%}
+            编辑成功
+            {%endif%}
+        </div>
+        {%endif%}
+		<form class="form-horizontal" method="post">
+			{%csrf_token%}
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">选择姓名</label>
+		    <div class="controls">
+		    	<p>
+		    		<input type="text" placeholder="按姓名过滤" id="input_userfilter">
+		    	</p>
+		    	<p>
+			        <select id="select_user" name="user">
+			        	<option value="__">——请选择——</option>
+			        	{%for u in us%}
+			        	<option value="{{u.id}}" data-id="{{u.first_name}}">{{u.first_name}}</option>
+			        	{%endfor%}
+			        </select>
+			        <select id="select_user_tmp" style="display:none" >
+			        </select>
+		    	</p>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">年份</label>
+		    <div class="controls">
+				<select name="year" id="select_year">
+			      	<option value="2012">2012</option>
+			      	<option value="2013">2013</option>
+			      	<option value="2014">2014</option>
+			    </select>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">月份</label>
+		    <div class="controls">
+				<select name="month" id="select_month">
+			      	<option value="1">01</option>
+			      	<option value="2">02</option>
+			      	<option value="3">03</option>
+			      	<option value="4">04</option>
+			      	<option value="5">05</option>
+			      	<option value="6">06</option>
+			      	<option value="7">07</option>
+			      	<option value="8">08</option>
+			      	<option value="9">09</option>
+			      	<option value="10">10</option>
+			      	<option value="11">11</option>
+			      	<option value="12">12</option>
+			    </select>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">项目</label>
+		    <div class="controls">
+		    	<input type="text" name="xiangmu" value="" placeholder="项目">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">应发</label>
+		    <div class="controls">
+		    	<input type="text" name="yingfa" value="0">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">保险</label>
+		    <div class="controls">
+		    	<input type="text" name="baoxian" value="0">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">公积金</label>
+		    <div class="controls">
+		    	<input type="text" name="gongjijin" value="0">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">税金</label>
+		    <div class="controls">
+		    	<input type="text" name="shuijin" value="0">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">实发</label>
+		    <div class="controls">
+		    	<input type="text" name="shifa" value="0">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <div class="controls">
+		      <button type="submit" class="btn btn-primary">确定</button>
+		      <button type="reset" class="btn btn-cancel">重置</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#input_userfilter").change(function(){
+		$("#select_user option").appendTo($("#select_user_tmp"));
+		$("#select_user").empty()
+		$("#select_user_tmp option[value='__']").appendTo($("#select_user"));
+		$("#select_user_tmp option[data-id*='"+$(this).val()+"']").appendTo($("#select_user"));
+	});
+	{%if gongzi%}
+	$("#select_year").val("{{gongzi.year}}");
+	$("#select_month").val("{{gongzi.month}}");
+	$("#select_user").val("{{gongzi.user.id}}");
+	$("input[name='xiangmu']").val("{{gongzi.xiangmu}}");
+	$("input[name='yingfa']").val("{{gongzi.yingfa}}");
+	$("input[name='baoxian']").val("{{gongzi.baoxian}}");
+	$("input[name='gongjijin']").val("{{gongzi.gongjijin}}");
+	$("input[name='shuijin']").val("{{gongzi.shuijin}}");
+	$("input[name='shifa']").val("{{gongzi.shifa}}");
+	{%endif%}
+});
+</script>
+{% endblock content %}

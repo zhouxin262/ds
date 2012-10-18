@@ -1,9 +1,22 @@
 {% extends "gongzi/base.html" %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">工资管理</li>
+          <li class="active"><a href="/gongzi/admin/list/">工资列表</a></li>
+          <li><a href="/gongzi/admin/create/">添加工资</a></li>
+          <li><a href="/gongzi/admin/upload/">上传工资</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
 {% block content %}
 <div class="span10">
-	<div class="page-header">
-		<h1>所有工资列表</h1>
-	</div>
+	<ul class="breadcrumb">
+      <li><a href="#">工资</a> <span class="divider">/</span></li>
+      <li class="active">列表</li>
+    </ul>
 	<div class="span8">
 		<ul class="unstyled ul-striped track-list">
 			<table class="table">
@@ -63,7 +76,8 @@
                         {{gongzi.shifa}}
                     </td>
                     <td>
-                        <a href="/gongzi/admin/{{gongzi.id}}/update/">编辑</a>
+                        <a href="/gongzi/admin/{{gongzi.id}}/update/">编辑</a> |
+                        <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/gongzi/admin/{{gongzi.id}}/delete/">删除</a>
                     </td>
                 </tr>
 				{% endfor %}

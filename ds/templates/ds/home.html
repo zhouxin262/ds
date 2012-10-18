@@ -84,7 +84,10 @@ $('#home').addClass('select');
             <li><a href="/user/list/" target="_blank">用户管理</a></li>
             {%endif%}
             {% if user in gongzimanagers %}
-            <li><a href="/gongzi/upload/" target="_blank">工资导入</a></li>
+            <li><a href="/gongzi/admin/list/" target="_blank">工资管理</a></li>
+            {%endif%}
+            {% if user in webstatusmanagers %}
+            <li><a href="/webstatus/" target="_blank">状态记录</a></li>
             {%endif%}
           </ul>
         </div>

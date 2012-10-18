@@ -2,7 +2,7 @@
 {% block title %}退出系统{% endblock %}
 {% block content %}
 <div class="main">     
-    <form class="form-horizontal" name="loginform" id="loginform" action="{%url auth_login%}" method="POST">
+    <form class="form-horizontal" name="loginform" id="loginform" action="/accounts/login/" method="POST">
       <fieldset>
         <legend>退出系统</legend>        <div class="signin_left">
         <p>您已经成功退出系统，</p> 

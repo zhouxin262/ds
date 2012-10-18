@@ -1,0 +1,87 @@
+{% extends "gongzi/base.html" %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">工资管理</li>
+          <li><a href="/gongzi/admin/list/">工资列表</a></li>
+          <li><a href="/gongzi/admin/create/">添加工资</a></li>
+          <li class="active"><a href="/gongzi/admin/upload/">上传工资</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+	  <li><a href="#">工资</a> <span class="divider">/</span></li>
+	  <li class="active">上传</li>
+	</ul>
+	<div>
+	    <div class="span4">
+			<form class="well" method="post" name="upload" enctype="multipart/form-data">
+				{%csrf_token%}
+				<div class="control-group">
+					<label>年份</label>
+					<div class="signin-controls">
+						<select name="year">
+							<option>2012</option>
+							<option>2013</option>
+							<option>2014</option>
+							<option>2015</option>
+							<option>2016</option>
+							<option>2017</option>
+							<option>2018</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label>月份</label>
+					<div class="signin-controls">
+						<select name="month">
+							<option {%if month == 1%}selected=selected{%endif%}>1</option>
+							<option {%if month == 2%}selected=selected{%endif%}>2</option>
+							<option {%if month == 3%}selected=selected{%endif%}>3</option>
+							<option {%if month == 4%}selected=selected{%endif%}>4</option>
+							<option {%if month == 5%}selected=selected{%endif%}>5</option>
+							<option {%if month == 6%}selected=selected{%endif%}>6</option>
+							<option {%if month == 7%}selected=selected{%endif%}>7</option>
+							<option {%if month == 8%}selected=selected{%endif%}>8</option>
+							<option {%if month == 9%}selected=selected{%endif%}>9</option>
+							<option {%if month == 10%}selected=selected{%endif%}>10</option>
+							<option {%if month == 11%}selected=selected{%endif%}>11</option>
+							<option {%if month == 12%}selected=selected{%endif%}>12</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="signin-controls">
+						<input type="file" class="input-large" name="file">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="signin-control-label" for="">&nbsp;</label>
+					<div class="signin-controls">
+						<input class="btn btn-primary" data-loading-text="请等待..." type="submit" value="提交"> <!--        <a class="btn btn-inverse" href="#">忘记密码？</a> -->
+					</div>
+				</div>
+			</form>
+		</div>
+		{%if post%}
+			<div class="span5">
+				{%if err%}
+					{%for e in err%}
+					<p class="text-error">
+					{{e}}
+					</p>
+					{%endfor%}
+				{%else%}
+					<p class='text-success'>
+						上传成功
+					</p>
+				{%endif%}
+			</div>
+		{%endif%}
+	</div>
+</div>
+{% endblock content %}
