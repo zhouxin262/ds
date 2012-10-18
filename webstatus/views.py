@@ -18,7 +18,7 @@ def create(request):
     return render(request, 'webstatus/create.html', {'form': form})
 
 def update(request,id):
-    ws = get_object_or_404(WebStatus, pk=id)
+    ws = get_object_or_404(WebStatus, pk=id, user=request.user)
     form = WebStatusForm(instance=ws)
     if request.method == 'POST':
         form = WebStatusForm(request.POST,instance=ws)
@@ -33,7 +33,7 @@ def view(request,id):
     return render(request, 'webstatus/view.html',{'form': form})
 
 def delete(request,id):
-    ws = get_object_or_404(WebStatus, pk=id)
+    ws = get_object_or_404(WebStatus, pk=id, user=request.user)
     ws.delete()
     return HttpResponseRedirect(reverse('webstatus_list'))
 

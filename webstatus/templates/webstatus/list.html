@@ -72,7 +72,13 @@
                            <td><span {%if ws.xsgzs == "异常"%}class="text-error"{%endif%}>{{ws.xsgzs}}</span></td>
                            <td><span {%if ws.zxcs == "异常"%}class="text-error"{%endif%}>{{ws.zxcs}}</span></td>
                            <td><span {%if ws.jhkt == "异常"%}class="text-error"{%endif%}>{{ws.jhkt}}</span></td>
-                           <td><a href="/webstatus/{{ws.pk}}/view/">查看</a> | <a href="/webstatus/{{ws.pk}}/delete/" onclick="javascript:return confirm('您真的确实要删除吗?');">删除</a></td>
+                           <td>
+                            {%if ws.user = user%}
+                            <a href="/webstatus/{{ws.pk}}/update/">修改</a> | <a href="/webstatus/{{ws.pk}}/delete/" onclick="javascript:return confirm('您真的确实要删除吗?');">删除</a>
+                            {%else%}
+                            <a href="/webstatus/{{ws.pk}}/view/">查看</a> 
+                            {%endif%}
+                            </td>
                         </tr>
                         {% endfor %}
                     </table>
