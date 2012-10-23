@@ -10,11 +10,25 @@
 <script language="javascript" type="text/javascript" src="http://pymis.njtu.edu.cn/site_media/lib/jquery/jquery-1.5.2.min.js"></script> 
 <link href="http://pymis.njtu.edu.cn/site_media/css/common.css?ver=0.1" rel="stylesheet" type="text/css">
 <link href="http://pymis.njtu.edu.cn/site_media/css/mainstyle.css?ver=0.3" rel="stylesheet" type="text/css">
+<style>
+.header { background:url({{STATIC_URL}}img/index-head.jpg) no-repeat; height:164px; position:relative; }
+.header-subtitle {position:relative;top:40px;
+  left:280px;color:white;font-size:22px;
+  font-family: "Microsoft YaHei";font-weight: bold}
+.header-entitle{
+  left: -160px;
+  position:relative;top:65px;
+  color:white;
+  font-family: "Microsoft YaHei";
+}
+</style>
 </head>
 <body>
 <div class="wrap">
   <div id="hd" class="header">
-    <h1>北京交通大学远程学院信息管理系统</h1>
+    <span class="header-subtitle">远 程 与 继 续 教 育 学 院</span>
+    <span class="header-entitle">School of Disatance Learning and Continuing Education Beijing Jiaotong University</span>
+    <h1>北京交通大学远程与继续教育学院</h1>
     <ul class="head-nav clearfix">
       <li id='home'><a href="/">我的首页</a></li>
       <!-- <li id='module'><a href="/module/module/">功能模块</a></li> -->
