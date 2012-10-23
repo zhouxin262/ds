@@ -1,4 +1,5 @@
 #coding=utf-8
+from datetime import datetime
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -8,6 +9,7 @@ from webstatus.models import WebStatus
 
 def create(request):
     form = WebStatusForm()
+    datestr = "%s-%s-%s" % (datetime.today().year, datetime.today().month, datetime.today().day)
     if request.method=="POST":
         form = WebStatusForm(request.POST)
         if form.is_valid():
@@ -15,7 +17,7 @@ def create(request):
             ws.user = request.user 
             ws.save()
             return HttpResponseRedirect(reverse('webstatus_list'))
-    return render(request, 'webstatus/create.html', {'form': form})
+    return render(request, 'webstatus/create.html', {'form': form, 'datestr':datestr})
 
 def update(request,id):
     ws = get_object_or_404(WebStatus, pk=id, user=request.user)

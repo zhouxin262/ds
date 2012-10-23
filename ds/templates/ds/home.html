@@ -86,11 +86,17 @@ $('#home').addClass('select');
             {% if user in gongzimanagers %}
             <li><a href="/gongzi/admin/list/" target="_blank">工资管理</a></li>
             {%endif%}
-            {% if user in webstatusmanagers %}
-            <li><a href="/webstatus/" target="_blank">状态记录</a></li>
-            {%endif%}
           </ul>
         </div>
+        
+        {% if user in webstatusmanagers %}
+        <div class="side-box">
+          <h3>技术部平台监控</h3>
+          <ul>            
+            <li><a href="/webstatus/" target="_blank">状态记录</a></li>
+          </ul>
+        </div>
+        {%endif%}
         </div>
       </div>
     </div>

@@ -56,6 +56,9 @@
     <script type="text/javascript">
     $(function(){
       $("#id_log_date").datepicker({"format":"yyyy-mm-dd"});
+      {%if datestr%}
+      $("#id_log_date").val("{{datestr}}");
+      {%endif%}
     });</script>
 </body>
 </html>
