@@ -1,0 +1,74 @@
+{% extends "xinjin/base.html" %}
+{% block title %}
+    薪金单
+{% endblock title %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">薪金单管理</li>
+          <li><a href="/xinjin/list/">薪金单列表</a></li>
+          <li class="active"><a href="/xinjin/create/">添加薪金单</a></li>
+          <li><a href="/xinjin/all/">汇总表</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="#">薪金单</a> <span class="divider">/</span></li>
+      <li class="active">编辑</li>
+    </ul>
+	<div>
+        {%if post%}
+        <div class="alert {%if err%}alert-error{%endif%}">
+            {%if err%}
+            {{err}}
+            {%else%}
+            编辑成功
+            {%endif%}
+        </div>
+        {%endif%}
+		<form class="form-horizontal" method="post">
+			{%csrf_token%}
+		  {{form}}
+		  <div class="control-group">
+		    <div class="controls">
+              <button type="submit" class="btn">保存</button>
+		      <button type="reset" class="btn btn-cancel">重置</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $userfilter = '<input type="text" id="id_userfilter" placeholder="按姓名过滤">';
+    $usertmp = '<select style="display:none" id="id_user_tmp"> </select>';
+    $.each($("#id_user option"), function(){
+        $(this).attr('data-id', $(this).text());
+    })
+    $("#id_user").before($("<p></p>").append($userfilter)).after($usertmp);
+	$("#id_userfilter").change(function(){
+        if($(this).val() != ""){
+            $("#id_user option").appendTo($("#id_user_tmp"));
+            $("#id_user").empty()
+            $("#id_user_tmp option[value='__']").appendTo($("#id_user"));
+            $("#id_user_tmp option[data-id*='"+$(this).val()+"']").appendTo($("#id_user"));
+        }
+	});
+	{%if xinjin%}
+	$("#select_year").val("{{xinjin.year}}");
+	$("#select_month").val("{{xinjin.month}}");
+	$("#id_user").val("{{xinjin.user.id}}");
+	$("input[name='xiangmu']").val("{{xinjin.xiangmu}}");
+	$("input[name='yingfa']").val("{{xinjin.yingfa}}");
+	$("input[name='baoxian']").val("{{xinjin.baoxian}}");
+	$("input[name='gongjijin']").val("{{xinjin.gongjijin}}");
+	$("input[name='shuijin']").val("{{xinjin.shuijin}}");
+	$("input[name='shifa']").val("{{xinjin.shifa}}");
+	{%endif%}
+});
+</script>
+{% endblock content %}

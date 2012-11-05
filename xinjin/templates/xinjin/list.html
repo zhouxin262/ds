@@ -1,0 +1,108 @@
+{% extends "xinjin/base.html" %}
+{% block title %}
+    薪金单
+{% endblock title %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">薪金单管理</li>
+          <li class="active"><a href="/xinjin/list/">薪金单列表</a></li>
+          <li><a href="/xinjin/create/">添加薪金单</a></li>
+          <li><a href="/xinjin/all/">汇总表</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="#">薪金单</a> <span class="divider">/</span></li>
+      <li class="active">列表</li>
+    </ul>
+	<div class="">
+		<table id="datatable" class="table">
+            <thead>
+    			<tr>
+                    <th>
+                        编号
+                    </th>
+                    <th>
+                        输入人
+                    </th>
+                    <th>
+                        提交时间
+                    </th>
+                    <th>
+                        查看
+                    </th>
+                    <th>
+                        编辑
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for xinjin in xinjin_list %}
+            <tr>
+                <td>
+                    <a href="/xinjin/{{xinjin.id}}/">{{xinjin.bianhao}}</a>
+                </td>
+                <td >
+                    {%firstof xinjin.typer.first_name xinjin.typer.last_name%}
+                </td>
+                <td >
+                    {{xinjin.dateline|date:"Y-m-d"}}
+                </td>
+                <td>
+                    <a href="/xinjin/{{xinjin.id}}/">查看</a>
+                </td>
+                <td>
+                    <a href="/xinjin/{{xinjin.id}}/update/">编辑</a>
+                </td>
+                <td>
+                    <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/xinjin/{{xinjin.id}}/delete/">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+		</table>
+		<div class="pagination pagination-right">
+		 <ul>
+		 	<li class="disabled">
+		 	<a>{{ xinjin_list.number }} / {{ xinjin_list.paginator.num_pages }}</a>
+		 	</li>
+		  	{% if xinjin_list.has_previous %}
+		    <li>
+		    	<a href="?{{querystr}}&page={{ xinjin_list.previous_page_number }}">上一页</a>
+		    </li>
+		    {% else %}
+		    <li class="disabled"><a>上一页</a></li>
+		    {% endif %}
+		    {% if xinjin_list.has_next %}
+		    <li>
+		    	<a href="?{{querystr}}&page={{ xinjin_list.next_page_number }}">下一页</a>
+		    </li>
+		    {% else %}
+		    <li class="disabled"><a>下一页</a></li>
+		    {% endif %}
+		  </ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $('#datatable').dataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "oLanguage": {
+            "sSearch": "查询: "
+        }
+    });
+});
+</script>
+{% endblock content %}

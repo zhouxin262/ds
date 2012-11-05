@@ -1,0 +1,177 @@
+{% extends "xinjin/base.html" %}
+{% block title %}
+    薪金单 - {{xinjindan.bianhao}}
+{% endblock title %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">薪金单管理</li>
+          <li class="active"><a href="/xinjin/list/">薪金单列表</a></li>
+          <li><a href="/xinjin/create/">添加薪金单</a></li>
+          <li><a href="/xinjin/all/">汇总表</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="{%url xinjindan_list%}">薪金单</a> <span class="divider">/</span></li>
+      <li><a href="#">{{xinjindan.bianhao}}</a> <span class="divider">/</span></li>
+      <li class="active">列表</li>
+    </ul>
+    <p class="pull-right"><a href="?excel=1" class="btn">导出</a></p>
+    </p>
+	<div class="">
+		<table id="datatable" class="table">
+            <thead>
+			<tr>
+                <th>
+                    序号
+                </th>
+                <th>
+                    编号
+                </th>
+                <th>
+                    项目
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    证件号
+                </th>
+                <th>
+                    年月
+                </th>
+                <th>
+                    应发
+                </th>
+                <th>
+                    保险
+                </th>
+                <th>
+                    公积金
+                </th>
+                <th>
+                    类型
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+			{% for xinjin in xinjin_list %}
+            <tr>
+                <td>
+                    {{forloop.counter}}
+                </td>
+                <td>
+                    {{xinjin.xinjindan.bianhao}}
+                </td>
+                <td>
+                    {{xinjin.xinjindan.xiangmu}}
+                </td>
+                <td>
+                    {{xinjin.user.first_name}}
+                </td>
+                <td>
+                    {{xinjin.user.last_name}}
+                </td>
+                <td>
+                    {{xinjin.year}}-<b>{{xinjin.month}}</b>
+                </td>
+                <td class="yingfa">
+                    {{xinjin.yingfa}}
+                </td>
+                <td class="baoxian">
+                    {{xinjin.baoxian}}
+                </td>
+                <td class="gongjijin">
+                    {{xinjin.gongjijin}}
+                </td>
+                <td>
+                    {{xinjin.get_leixing_display}}
+                </td>
+                <td>
+                    <span style="color:{% if xinjin.status == '0' %}red{%else%}green{% endif %}">{{xinjin.get_status_display}}</span>
+                </td>
+                <td>
+                    {%if xinjin.status == '0'%}<a href="/xinjin/{{xinjindan.id}}/{{xinjin.id}}/update/">编辑</a> | {%endif%}
+                    <a onclick="javascript:return confirm('您真的确实要审核通过吗?');" href="/xinjin/{{xinjin.xinjindan.id}}/{{xinjin.id}}/valid/">审核</a> |
+                    <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/xinjin/{{xinjin.xinjindan.id}}/{{xinjin.id}}/delete/">删除</a>
+                </td>
+            </tr>
+			{% endfor %}
+            </tbody>
+            <tfoot>
+                <th>
+                    合计
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th class="yingfa_total">
+                    0
+                </th>
+                <th class="baoxian_total">
+                    0
+                </th>
+                <th class="gongjijin_total">
+                    0
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+            </tfoot>
+		</table>
+        <p class="pull-left"><a href="/xinjin/{{xinjindan.id}}/create/" class="btn">添加</a></p>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $('#datatable').dataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "oLanguage": {
+            "sSearch": "查询: "
+        }
+    });
+    function total(name){
+        var total = 0;
+        $.each($("." + name), function(){
+            total += parseFloat($(this).text());
+        });
+        return total;
+    }
+    $(".yingfa_total").text(total('yingfa'));
+    $(".baoxian_total").text(total('baoxian'));
+    $(".gongjijin_total").text(total('gongjijin'));
+});
+</script>
+{% endblock content %}

@@ -1,0 +1,120 @@
+{% extends "xinjin/base.html" %}
+{% block title %}
+    咨询记录
+{% endblock title %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">咨询记录管理</li>
+          <li class="active"><a href="/jiaofu/list/">咨询记录列表</a></li>
+          <li><a href="/jiaofu/create/">添加咨询记录</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="#">咨询记录</a> <span class="divider">/</span></li>
+      <li class="active">列表</li>
+    </ul>
+	<div class="">
+		<table id="datatable" class="table table-bordered">
+            <thead>
+    			<tr>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        时间日期
+                    </th>
+                    <th>
+                        方式
+                    </th>
+                    <th width="300">
+                        问题
+                    </th>
+                    <th>
+                        人员类别
+                    </th>
+                    <th>
+                        问题类别
+                    </th>
+                    <th>
+                        输入人
+                    </th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for zixun in zixun_list %}
+            <tr>
+                <td>
+                    <a href="/jiaofu/{{zixun.id}}/">{{forloop.counter}}</a>
+                </td>
+                <td >
+                    {{zixun.dateline|date:"Y-m-d H:i"}}
+                </td>
+                <td >
+                    {{zixun.get_fangshi_display}}
+                </td>
+                <td >
+                    {{zixun.wenti|truncatechars:20}}
+                </td>
+                <td >
+                    {{zixun.get_renyuanleibie_display}}
+                </td>
+                <td >
+                    {{zixun.get_wentileibie_display}}
+                </td>
+                <td >
+                    {%firstof zixun.typer.first_name zixun.typer.last_name%}
+                </td>
+                <td>
+                    <a href="/jiaofu/{{zixun.id}}/">查看</a>
+                    <a href="/jiaofu/{{zixun.id}}/update/">编辑</a>
+                    <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/jiaofu/{{zixun.id}}/delete/">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+		</table>
+		<div class="pagination pagination-right">
+		 <ul>
+		 	<li class="disabled">
+		 	<a>{{ zixun_list.number }} / {{ zixun_list.paginator.num_pages }}</a>
+		 	</li>
+		  	{% if zixun_list.has_previous %}
+		    <li>
+		    	<a href="?{{querystr}}&page={{ zixun_list.previous_page_number }}">上一页</a>
+		    </li>
+		    {% else %}
+		    <li class="disabled"><a>上一页</a></li>
+		    {% endif %}
+		    {% if zixun_list.has_next %}
+		    <li>
+		    	<a href="?{{querystr}}&page={{ zixun_list.next_page_number }}">下一页</a>
+		    </li>
+		    {% else %}
+		    <li class="disabled"><a>下一页</a></li>
+		    {% endif %}
+		  </ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $('#datatable').dataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "oLanguage": {
+            "sSearch": "查询: "
+        },
+        "aaSorting": [[ 1 , "desc" ]]
+    });
+});
+</script>
+{% endblock content %}

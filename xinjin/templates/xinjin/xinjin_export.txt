@@ -1,0 +1,2 @@
+{% for xinjin in xinjin_list %}{{forloop.counter}}, {{ xinjin.xinjindan.bianhao|addslashes }}, {{ xinjin.get_xiangmu_gbk|addslashes }}, {{ xinjin.get_username_gbk|addslashes }}, {{ xinjin.user.last_name|addslashes }}, {{ xinjin.year|addslashes }}, {{ xinjin.month|addslashes }}, {{ xinjin.yingfa|addslashes }}, {{ xinjin.baoxian|addslashes }}, {{ xinjin.gongjijin|addslashes }}, {{ xinjin.get_leixing_gbk|addslashes }}
+{% endfor %}

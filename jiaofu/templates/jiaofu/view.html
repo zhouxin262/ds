@@ -1,0 +1,41 @@
+{% extends "xinjin/base.html" %}
+{% block title %}
+    咨询记录
+{% endblock title %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">咨询记录管理</li>
+          <li><a href="/jiaofu/list/">咨询记录列表</a></li>
+          <li class="active"><a href="/jiaofu/create/">添加咨询记录</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+    <ul class="breadcrumb">
+      <li><a href="#">咨询记录</a> <span class="divider">/</span></li>
+      <li class="active">编辑</li>
+    </ul>
+    <div>
+        {%if post%}
+        <div class="alert {%if err%}alert-error{%endif%}">
+            {%if err%}
+            {{err}}
+            {%else%}
+            编辑成功
+            {%endif%}
+        </div>
+        {%endif%}
+        <div class="form-horizontal">
+            {{form}}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+  $("input, select, textarea").attr("disabled", "disabled");
+});</script>
+{% endblock content %}

@@ -13,5 +13,5 @@ class WebStatus(models.Model):
     jhkt = models.CharField(max_length=10, verbose_name=u"交互课堂", choices=STATUS_CHOICES, default=u"正常")
     memo = models.TextField(max_length=10, verbose_name=u"异常备注", blank=True, default="", help_text=u"如有异常填写备注，记录（用户名、姓名、电话、异常功能名称、详细描述）")
     log_date = models.DateField(null=True, blank=True, verbose_name="日期")
-    log_time = models.CharField(max_length=10, verbose_name=u"时间", choices=TIME_CHOICES, default="08:00")
+    log_time = models.CharField(max_length=10, verbose_name=u"时间", default="08:00")
     dateline = models.DateTimeField(auto_now_add=True)

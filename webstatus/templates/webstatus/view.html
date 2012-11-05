@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>状态记录</title>
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
-  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/datepicker.css">
 </head>
 <body>
     <div class="container">
@@ -29,9 +29,9 @@
                     <ul class="breadcrumb">
                       <li><a href="#">状态记录</a> <span class="divider">/</span></li>
                       <li class="active">修改</li>
-                    </ul>                    
+                    </ul>
                     {%if post%}
-                    <div class="alert {%if err%}alert-error{%endif%}">                    
+                    <div class="alert {%if err%}alert-error{%endif%}">
                         {%if err%}
                         {{err}}
                         {%else%}
@@ -42,7 +42,7 @@
                     <div class="">
                       <form class="form-horizontal well" method="post">
                           {%csrf_token%}
-                          {{form}}                  
+                          {{form}}
                       </form>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 <meta name="author" content="" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<script language="javascript" type="text/javascript" src="http://pymis.njtu.edu.cn/site_media/lib/jquery/jquery-1.5.2.min.js"></script> 
+<script language="javascript" type="text/javascript" src="http://pymis.njtu.edu.cn/site_media/lib/jquery/jquery-1.5.2.min.js"></script>
 <link href="http://pymis.njtu.edu.cn/site_media/css/common.css?ver=0.1" rel="stylesheet" type="text/css">
 <link href="http://pymis.njtu.edu.cn/site_media/css/mainstyle.css?ver=0.3" rel="stylesheet" type="text/css">
 <style>
@@ -44,70 +44,71 @@
     </div>
   </div>
   <div id="bd" class="bodyer clearfix">
-  
+
 <script>
 $('#home').addClass('select');
 </script>
     <div class="self-nav">
       <div class="self-info clearfix">
-        <div class="head-pic"> <a href="{{ STATIC_URL }}img/default_avatar.png"> <img src="{{ STATIC_URL }}img/default_avatar.png" alt="" /> </a> </div> 
+        <div class="head-pic"> <a href="{{ STATIC_URL }}img/default_avatar.png"> <img src="{{ STATIC_URL }}img/default_avatar.png" alt="" /> </a> </div>
         <div class="welcom"> <span>欢迎 {{user.first_name}} 老师！</span><!-- <span>上次登录IP：<b> 202.112.154.187 </b></span> <span>上次登录时间：<b> 2012-09-17 </b></span> --></div>
       </div>
-      <ul class="clearfix">  
-            <li><a href="http://dispub.bjtu.edu.cn/cms/index.do" target="_blank">教学平台</a></li>    
-            <li><a href="http://202.112.157.145/cms/xyjj/index.htm" target="_blank">学院简介</a></li>  
-            <li><a href="http://202.112.157.145/cms/zcfg/index.htm" target="_blank">政策法规</a></li>  
-            <li><a href="http://202.112.157.145/cms/zszl/index.htm" target="_blank">招生专栏</a></li>  
-            <li><a href="http://202.112.157.145/cms/xwzd/index.htm" target="_blank">校外站点</a></li>  
-            <li><a href="http://202.112.157.145/cms/zcfw/index.htm" target="_blank">支持服务</a></li>  
-            <li><a href="http://202.112.157.145/cms/xxzn/index.htm" target="_blank">学习指南</a></li>  
-            <li><a href="http://202.112.157.145/cms/xsyd/index.htm" target="_blank">学生园地</a></li>  
-            <li><a href="http://202.112.157.131/cms" target="_blank">校友录</a></li>  
-            <li><a href="http://202.112.157.145/cms/xzyd/index.htm" target="_blank">下载园地</a></li>  
-            <li><a href="http://202.112.157.145/cms/tszy/index.htm" target="_blank">特色资源</a></li>  
+      <ul class="clearfix">
+            <li><a href="http://dispub.bjtu.edu.cn/cms/index.do" target="_blank">教学平台</a></li>
+            <li><a href="http://202.112.157.145/cms/xyjj/index.htm" target="_blank">学院简介</a></li>
+            <li><a href="http://202.112.157.145/cms/zcfg/index.htm" target="_blank">政策法规</a></li>
+            <li><a href="http://202.112.157.145/cms/zszl/index.htm" target="_blank">招生专栏</a></li>
+            <li><a href="http://202.112.157.145/cms/xwzd/index.htm" target="_blank">校外站点</a></li>
+            <li><a href="http://202.112.157.145/cms/zcfw/index.htm" target="_blank">支持服务</a></li>
+            <li><a href="http://202.112.157.145/cms/xxzn/index.htm" target="_blank">学习指南</a></li>
+            <li><a href="http://202.112.157.145/cms/xsyd/index.htm" target="_blank">学生园地</a></li>
+            <li><a href="http://202.112.157.131/cms" target="_blank">校友录</a></li>
+            <li><a href="http://202.112.157.145/cms/xzyd/index.htm" target="_blank">下载园地</a></li>
+            <li><a href="http://202.112.157.145/cms/tszy/index.htm" target="_blank">特色资源</a></li>
       </ul>
     </div>
     <div class="content clearfix">
       <div class="main clearfix">
-        
+
             <div class="main-box">
             <h3>新闻点播</h3>
             <a href="http://dispub.bjtu.edu.cn/cms/xwdb/index.htm" class="link-more" target="_blank"> >>更多</a>
-                      
-                {{news_list1|safe}}             
-            
+
+                {{news_list1|safe}}
+
             </div>
-        
+
             <div class="main-box">
             <h3>学院通知</h3>
             <a href="http://dispub.bjtu.edu.cn/cms/xytz/index.htm" class="link-more" target="_blank"> >>更多</a>
-                 
-              {{news_list2|safe}} 
-            
+
+              {{news_list2|safe}}
+
             </div>
-        
+
       </div>
       <div class="side clearfix">
         <div class="side-content">
-        
+
         <div class="side-box">
           <h3>财务信息查询</h3>
-          <ul>            
+          <ul>
             <li><a href="/gongzi/" target="_blank">个人工资查询</a></li>
             {% if user in usermanagers %}
             <li><a href="/user/list/" target="_blank">用户管理</a></li>
             {%endif%}
             {% if user in gongzimanagers %}
             <li><a href="/gongzi/admin/list/" target="_blank">工资管理</a></li>
+            <li><a href="/xinjin/list/" target="_blank">薪金条管理</a></li>
             {%endif%}
           </ul>
         </div>
-        
-        {% if user in webstatusmanagers %}
+
+        {% if perms.webstatus %}
         <div class="side-box">
           <h3>技术部平台监控</h3>
-          <ul>            
-            <li><a href="/webstatus/" target="_blank">状态记录</a></li>
+          <ul>
+            <li><a href="/webstatus/" target="_blank">教学平台状态记录</a></li>
           </ul>
         </div>
         {%endif%}
@@ -121,4 +122,4 @@ $('#home').addClass('select');
   </div>
 </body>
 </html>
-  
+
