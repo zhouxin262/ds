@@ -112,6 +112,15 @@ $('#home').addClass('select');
           </ul>
         </div>
         {%endif%}
+
+        {% if perms.webstatus %}
+        <div class="side-box">
+          <h3>教服</h3>
+          <ul>
+            <li><a href="{%url zixun_list%}" target="_blank">咨询记录</a></li>
+          </ul>
+        </div>
+        {%endif%}
         </div>
       </div>
     </div>

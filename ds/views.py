@@ -9,7 +9,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 
 def home(request):
-    print request.user.get_all_permissions()
     n = News.objects.filter(date__gte = datetime.date.today()).count()
     if not n:
         import urllib2
@@ -39,7 +38,7 @@ def home(request):
         # 网站状态监控员
         # webstatusmanagers = User.objects.filter(username__in = ['admin', '430124198809180011', '70251', '13022419820312081X', '5054', '70248', '110221198211183615','6836'])
         return render(request, 'ds/home.html', {'news_list1':news_list1,
-            'news_list2':news_list2, 
+            'news_list2':news_list2,
             'usermanagers': usermanagers,
             'gongzimanagers': gongzimanagers})
 
@@ -47,7 +46,7 @@ def adduser(request):
     if request.method == "POST":
         err = ''
         u = User.objects.filter(username = request.POST.get('username', ''))
-        print  u 
+        print  u
         if u:
             err = u'重复的证件账号'
         else:

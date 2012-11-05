@@ -13,15 +13,15 @@ class Zixun(models.Model):
     RENYUANLEIBIE_CHOICES = ((u"成人", u"成人"), (u"网络", u"网络"),
                              (u"交通", u"交通"), (u"自考", u"自考"), (u"站点", u"站点"), (u"校外", u"校外"), )
     fangshi = models.CharField(
-        verbose_name=u"方式", max_length=30, blank=True, default='', choices=FANGSHI_CHOICES)
+        verbose_name=u"方式", max_length=30, default='Q', choices=FANGSHI_CHOICES)
     xuehao = models.CharField(
         verbose_name=u"学号", max_length=30, blank=True, default='')
     wenti = models.TextField(
         verbose_name=u"问题", blank=True, default='')
     renyuanleibie = models.CharField(
-        verbose_name=u"人员类别", max_length=30, blank=True, default='', choices=RENYUANLEIBIE_CHOICES)
+        verbose_name=u"人员类别", max_length=30, default=u"成人", choices=RENYUANLEIBIE_CHOICES)
     wentileibie = models.CharField(
-        verbose_name=u"问题类别", max_length=30, blank=True, default='', choices=WENTILEIBIE_CHOICES)
+        verbose_name=u"问题类别", max_length=30, default=u"招生", choices=WENTILEIBIE_CHOICES)
     memo = models.CharField(
         verbose_name=u"备注", max_length=30, blank=True, default='')
     jiejuefangan = models.TextField(
