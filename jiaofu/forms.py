@@ -8,7 +8,7 @@ class ZixunForm(BootstrapModelForm):
     class Meta:
         layout = (
             Fieldset(u"", "fangshi",
-                     "xuehao", "wenti", "renyuanleibie", "wentileibie", "memo"),
+                     "xuehao",  "renyuanleibie", "wentileibie","wenti", "memo"),
         )
         model = Zixun
         exclude = ("jiejuefangan", "dateline", "typer",)

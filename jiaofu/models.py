@@ -22,8 +22,8 @@ class Zixun(models.Model):
         verbose_name=u"人员类别", max_length=30, default=u"成人", choices=RENYUANLEIBIE_CHOICES)
     wentileibie = models.CharField(
         verbose_name=u"问题类别", max_length=30, default=u"招生", choices=WENTILEIBIE_CHOICES)
-    memo = models.CharField(
-        verbose_name=u"备注", max_length=30, blank=True, default='')
+    memo = models.TextField(
+        verbose_name=u"备注", blank=True, default='')
     jiejuefangan = models.TextField(
         verbose_name=u"解决方案", blank=True, default='')
     dateline = models.DateTimeField(
