@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="http://202.112.154.36:8000/cwcx/kfgz/css/wendy.css" rel="stylesheet" type="text/css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <title>
+            工资查询
+        </title>
+    </head>
+    <body>
+        <form action="/gongzi/" method="get">
+            从
+            <select name="from_year" id="">
+                {% for year in years %}
+                <option value='{{year.0}}'>
+                    {{year.1}}
+                </option>
+                {% endfor %}
+            </select>
+            年
+            <select name="from_month" id="">
+                {% for month in months %}
+                <option value='{{month.0}}'>
+                    {{month.1}}
+                </option>
+                {% endfor %}
+            </select>
+            月
+            <br/><br/>
+            至
+            <select name="to_year" id="">
+                {% for year in years %}
+                <option value='{{year.0}}'>
+                    {{year.1}}
+                </option>
+                {% endfor %}
+            </select>
+            年
+            <select name="to_month" id="">
+                {% for month in months %}
+                <option value='{{month.0}}'>
+                    {{month.1}}
+                </option>
+                {% endfor %}
+            </select>
+            <br/><br/>
+            <input type="submit" value="查询" />
+        </form>
+    </body>
+</html>

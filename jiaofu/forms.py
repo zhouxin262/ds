@@ -8,7 +8,17 @@ class ZixunForm(BootstrapModelForm):
     class Meta:
         layout = (
             Fieldset(u"", "fangshi",
-                     "xuehao",  "renyuanleibie", "wentileibie","wenti", "memo"),
+                     "xuehao", "zhandian", "lianxifangshi", "renyuanleibie", "wentileibie", "wenti", "memo"),
         )
         model = Zixun
-        exclude = ("jiejuefangan", "dateline", "typer",)
+        exclude = ("jiejuefangan", "dateline", "typer", "jiejue_typer", "chuliqingkuang", "jiejuedateline")
+
+
+class JiejueForm(BootstrapModelForm):
+    class Meta:
+        layout = (
+            Fieldset(u"", "chuliqingkuang", "jiejuefangan"),
+        )
+        model = Zixun
+        exclude = ("dateline", "typer", "jiejue_typer", "jiejuedateline", "fangshi",
+                   "xuehao", "zhandian", "lianxifangshi", "renyuanleibie", "wentileibie", "wenti", "memo")

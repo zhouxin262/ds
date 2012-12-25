@@ -9,8 +9,10 @@
           <li class="nav-header">咨询记录管理</li>
           <li class="active"><a href="/jiaofu/list/">咨询记录列表</a></li>
           <li><a href="/jiaofu/create/">添加咨询记录</a></li>
+          <li><a href="/jiaofu/tongji/">统计</a></li>
         </ul>
     </div>
+    <p class="pull-right"><a href="?excel=1" class="btn btn-primary" target="_blank" > 导 出 </a></p>
 </div>
 {%endblock navbar%}
 {% block content %}
@@ -19,6 +21,7 @@
       <li><a href="#">咨询记录</a> <span class="divider">/</span></li>
       <li class="active">列表</li>
     </ul>
+
 	<div class="">
 		<table id="datatable" class="table table-bordered">
             <thead>
@@ -44,6 +47,9 @@
                     <th>
                         输入人
                     </th>
+                    <th>
+                        处理情况
+                    </th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -66,13 +72,16 @@
                     {{zixun.get_renyuanleibie_display}}
                 </td>
                 <td >
-                    {{zixun.get_wentileibie_display}}
+                    {{zixun.wentileibie}}
                 </td>
                 <td >
                     {%firstof zixun.typer.first_name zixun.typer.last_name zixun.typer.username%}
                 </td>
+                <td >
+                    {{zixun.get_chuliqingkuang_display}}
+                </td>
                 <td>
-                    <a href="/jiaofu/{{zixun.id}}/">查看</a>
+                    <a href="/jiaofu/{{zixun.id}}/jiejue/">解决</a>
                     <a href="/jiaofu/{{zixun.id}}/update/">编辑</a>
                     <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/jiaofu/{{zixun.id}}/delete/">删除</a>
                 </td>
@@ -80,38 +89,25 @@
             {% endfor %}
             </tbody>
 		</table>
-		<div class="pagination pagination-right">
-		 <ul>
-		 	<li class="disabled">
-		 	<a>{{ zixun_list.number }} / {{ zixun_list.paginator.num_pages }}</a>
-		 	</li>
-		  	{% if zixun_list.has_previous %}
-		    <li>
-		    	<a href="?{{querystr}}&page={{ zixun_list.previous_page_number }}">上一页</a>
-		    </li>
-		    {% else %}
-		    <li class="disabled"><a>上一页</a></li>
-		    {% endif %}
-		    {% if zixun_list.has_next %}
-		    <li>
-		    	<a href="?{{querystr}}&page={{ zixun_list.next_page_number }}">下一页</a>
-		    </li>
-		    {% else %}
-		    <li class="disabled"><a>下一页</a></li>
-		    {% endif %}
-		  </ul>
-		</div>
 	</div>
 </div>
 <script type="text/javascript">
 $(function(){
     $('#datatable').dataTable({
-        "bPaginate": false,
+        "iDisplayLength": 25,
+        "sPaginationType": "full_numbers",
         "bLengthChange": false,
         "bInfo": false,
         "bAutoWidth": false,
         "oLanguage": {
-            "sSearch": "查询: "
+            "sSearch": "查询: ",
+            "oPaginate": {
+            "sFirst": "第一页",
+            "sLast": "最后页",
+            "sPrevious": "上一页",
+            "sNext": "下一页"
+          }
+
         },
         "aaSorting": [[ 1 , "desc" ]]
     });

@@ -21,9 +21,15 @@
       <li class="active">列表</li>
     </ul>
     <p class="alert">只有审核通过的才在此表中显示</p>
-    <p class="pull-right"><a href="?excel=1" class="btn">导出</a></p>
+    <p class="pull-right"><a href="?excel=1&bh={{bh}}" class="btn">导出</a></p>
+    <ul class="nav nav-pills">
+        <li {% if bh == "__" %}class="active"{% endif %}><a href="?bh=__">全部</a></li>
+        <li {% if bh == "PX" %}class="active"{% endif %}><a href="?bh=PX">培训</a></li>
+        <li {% if bh == "LX" %}class="active"{% endif %}><a href="?bh=LX">留学</a></li>
+        <li {% if bh == "BG" %}class="active"{% endif %}><a href="?bh=BG">宾馆</a></li>
+    </ul>
 	<div class="">
-        <table id="datatable" class="table">
+        <table id="datatable" class="table table-bordered">
             <thead>
             <tr>
                 <th>
@@ -68,7 +74,7 @@
                     {{forloop.counter}}
                 </td>
                 <td>
-                    {{xinjin.xinjindan.bianhao}}
+                    {{xinjin.xinjindan.bianhao.upper}}
                 </td>
                 <td>
                     {{xinjin.xinjindan.xiangmu}}
@@ -147,6 +153,7 @@
 $(function(){
     $('#datatable').dataTable({
         "bPaginate": false,
+        "bFilter": false,
         "bLengthChange": false,
         "bInfo": false,
         "bAutoWidth": false,

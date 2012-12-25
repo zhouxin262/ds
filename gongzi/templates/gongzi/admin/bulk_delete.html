@@ -1,0 +1,50 @@
+{% extends "gongzi/base.html" %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">工资管理</li>
+          <li><a href="/gongzi/admin/list/">工资列表</a></li>
+          <li><a href="/gongzi/admin/create/">添加工资</a></li>
+          <li><a href="/gongzi/admin/upload/">上传工资</a></li>
+          <li  class="active"><a href="/gongzi/admin/bulk_delete/">批量删除</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="#">工资</a> <span class="divider">/</span></li>
+      <li class="active">列表</li>
+    </ul>
+	<div class="">
+			<table class="table table-striped">
+				<tr>
+                    <th>
+                        年
+                    </th>
+                    <th>
+                        月
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+				{% for gongzi in gongzi_list %}
+                <tr>
+                    <td >
+                        {{gongzi.year}}
+                    </td>
+                    <td >
+                        {{gongzi.month}}
+                    </td>
+                    <td>
+                        <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/gongzi/admin/bulk_delete/?year={{gongzi.year}}&month={{gongzi.month}}">批量删除</a>
+                    </td>
+                </tr>
+				{% endfor %}
+			</table>
+	</div>
+</div>
+{% endblock content %}

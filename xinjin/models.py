@@ -40,3 +40,5 @@ class Xinjin(models.Model):
         verbose_name=u"输入日期", null=True, blank=True, auto_now=True)
     typer = models.ForeignKey(User, related_name="xinjin_typer")
     status = models.CharField(max_length=1, default='0', choices=STATUS_CHOICES)
+
+

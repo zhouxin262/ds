@@ -1,0 +1,166 @@
+{% extends "xinjin/base.html" %}
+{% block title %}
+    咨询记录
+{% endblock title %}
+{%block navbar%}
+<div class="span2">
+    <div class="well" style="padding: 8px 0">
+        <ul class="nav nav-list">
+          <li class="nav-header">咨询记录管理</li>
+          <li ><a href="/jiaofu/list/">咨询记录列表</a></li>
+          <li><a href="/jiaofu/create/">添加咨询记录</a></li>
+          <li  class="active"><a href="/jiaofu/tongji/">统计</a></li>
+        </ul>
+    </div>
+</div>
+{%endblock navbar%}
+{% block content %}
+<SCRIPT LANGUAGE="Javascript" SRC="{{ STATIC_URL }}js/FusionCharts.js"></SCRIPT>
+<div class="span10">
+	<ul class="breadcrumb">
+      <li><a href="#">咨询记录</a> <span class="divider">/</span></li>
+      <li class="active">列表</li>
+    </ul>
+    <p>
+        <form>
+        <input type="text" name="s" value="{{s}}" class="input-small"/> - <input type="text" name="e" value="{{e}}" class="input-small"/>
+        <input type="submit" class="btn" value="统计" />
+    </form>
+    </p>
+    <table>
+        <tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            方式
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t1 %}
+                <tr>
+                    <td >
+                        {{r.label}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart" ></div></td>
+            <td><div id="chart4" ></div></td>
+        </tr>
+        <tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            人员类别
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t2 %}
+                <tr>
+                    <td >
+                        {{r.label}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart2" ></div></td>
+            <td><div id="chart5" ></div></td>
+        </tr>
+        <tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            问题类别
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t3 %}
+                <tr>
+                    <td >
+                        {{r.label}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart3" ></div></td>
+            <td><div id="chart6" ></div></td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+var xmlData="<graph>";
+{% for r in t1 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.label}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart4");
+
+var xmlData="<graph>";
+{% for r in t2 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.label}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart2");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart5");
+
+var xmlData="<graph>";
+{% for r in t3 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.label}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart3");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart6");
+</script>
+{% endblock content %}

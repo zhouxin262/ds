@@ -10,23 +10,23 @@
 
 
 {% block content %}
-<div class="main">       
+<div class="main">
     <form class="form-horizontal" name="loginform" id="loginform" action="" method="POST">
       <fieldset>
         <legend>登录</legend>
         <div class="signin_left">
           <div class="notice">
             <p>
-              <span>输入用户名密码后，点击登录进入信息系统。</span> 
+              <span>输入用户名密码后，点击登录进入信息系统。</span>
             </p>
             <p>
-              <span>1、用户名是工资号</span> 
+              <span>1、用户名是工资号</span>
             </p>
             <p>
-              <span>2、如果工资号不能登录，请用身份证号</span> 
+              <span>2、如果工资号不能登录，请用身份证号</span>
             </p>
             <p>
-              <span>3、初始密码已通过邮件的方式发送给您</span> 
+              <span>3、初始密码已通过邮件的方式发送给您</span>
             </p>
           </div>
         </div>
@@ -62,4 +62,13 @@
       </fieldset>
     </form>
 </div>
+<script>
+{% if form.errors %}
+    {% for field, errors in form.errors.items %}
+    {% for error in errors %}
+    alert("{{error}}");
+    {% endfor %}
+    {% endfor %}
+{% endif %}
+</script>
 {% endblock %}

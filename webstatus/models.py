@@ -1,7 +1,7 @@
 #coding=utf-8
-from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+
 
 class WebStatus(models.Model):
     STATUS_CHOICES = ((u'正常', u'正常'), (u'异常', u'异常'),)

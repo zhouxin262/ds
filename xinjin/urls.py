@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^(?P<id>\d+)/$',  'xinjin.views.xinjin_list', name='xinjin_list'),
     url(r'^(?P<id>\d+)/create/$',  'xinjin.views.xinjin_create', name='xinjin_create'),
+    url(r'^(?P<id>\d+)/upload/$',  'xinjin.views.xinjin_upload', name='xinjin_upload'),
     url(r'^(?P<id>\d+)/(?P<xid>\d+)/update/$',  'xinjin.views.xinjin_update', name='xinjin_update'),
     url(r'^(?P<id>\d+)/(?P<xid>\d+)/delete/$',  'xinjin.views.xinjin_delete', name='xinjin_delete'),
     url(r'^(?P<id>\d+)/(?P<xid>\d+)/valid/$',  'xinjin.views.xinjin_valid', name='xinjin_valid'),

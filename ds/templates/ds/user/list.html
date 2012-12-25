@@ -43,12 +43,20 @@
                                 证件
                             </th>
                             <th>
+                                身份证
+                            </th>
+                            <th>
+                                登陆账号
+                            </th>
+                            <th>
                                 操作
                             </th>
                         </tr>
                         {% for user in user_list %}
                         <tr>
                            <td>{{user.first_name}}</td>
+                           <td>{{user.gongzihao.gongzihao}}</td>
+                           <td>{{user.last_name}}</td>
                            <td>{{user.username}}</td>
                            <td><a href="/user/{{user.pk}}/edit/">修改</a> | <a href="/user/{{user.pk}}/del/" onclick="javascript:return confirm('您真的确实要删除【{{user.first_name}}】吗?');">删除</a></td>
                         </tr>
@@ -75,6 +83,6 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </body>
 </html>

@@ -21,11 +21,14 @@
       <li class="active">列表</li>
     </ul>
 	<div class="">
-		<table id="datatable" class="table">
+		<table id="datatable" class="table table-bordered">
             <thead>
     			<tr>
                     <th>
                         编号
+                    </th>
+                    <th>
+                        项目
                     </th>
                     <th>
                         输入人
@@ -48,7 +51,10 @@
             {% for xinjin in xinjin_list %}
             <tr>
                 <td>
-                    <a href="/xinjin/{{xinjin.id}}/">{{xinjin.bianhao}}</a>
+                    <a href="/xinjin/{{xinjin.id}}/">{{xinjin.bianhao.upper}}</a>
+                </td>
+                <td>
+                    <a href="/xinjin/{{xinjin.id}}/">{{xinjin.xiangmu}}</a>
                 </td>
                 <td >
                     {%firstof xinjin.typer.first_name xinjin.typer.last_name%}

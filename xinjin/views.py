@@ -1,5 +1,5 @@
 #coding=utf-8
-# import xlrd
+import xlrd
 import csv
 from datetime import datetime
 
@@ -54,6 +54,7 @@ def create(request):
         form = XinjinDanForm(request.POST)
         if form.is_valid():
             xinjin = form.save(commit=False)
+            xinjin.bianhao = xinjin.bianhao.upper()
             xinjin.typer = request.user
             xinjin.year = datetime.today().year
             xinjin.month = datetime.today().month
@@ -84,21 +85,25 @@ def delete(request, id):
 def xinjin_list(request, id):
     xinjindan = get_object_or_404(XinjinDan, pk=id)
 
-    xinjin_list = xinjindan.xinjin.filter().order_by('-dateline')
+    xinjin_list = xinjindan.xinjin.filter().order_by('-id')
     # xinjin_total = xinjindan.xinjin.filter().values('xinjindan').annotate(y=Sum("yingfa"), b=Sum("baoxian"), g=Sum("gongjijin"))
 
     if request.GET.get('excel'):
         # Create the HttpResponse object with the appropriate CSV header.
         response = HttpResponse(mimetype='text/csv')
         response['Content-Disposition'] = 'attachment; filename="' + xinjindan.bianhao + '.csv"'
+        writer = csv.writer(response)
+        writer.writerow([u'序号'.encode('gbk'), u'编号'.encode('gbk'), u'项目'.encode('gbk'),
+                         u'姓名'.encode('gbk'), u'身份证号码'.encode('gbk'), u'年份'.encode('gbk'),
+                         u'月份'.encode('gbk'), u'应发'.encode('gbk'), u'保险'.encode('gbk'), u'公积金'.encode('gbk'),
+                         u'类型'.encode('gbk')])
         for i, xinjin in enumerate(xinjin_list):
-            writer = csv.writer(response)
             setattr(xinjin, 'get_username_gbk', xinjin.user.first_name.encode('gbk'))
             setattr(xinjin, 'get_xiangmu_gbk', xinjin.xinjindan.xiangmu.encode('gbk'))
-            setattr(xinjin, 'get_leixing_gbk', xinjin.leixing.encode('gbk'))
+            setattr(xinjin, 'get_leixing_gbk', xinjin.get_leixing_display().encode('gbk'))
             writer.writerow([i + 1, xinjin.xinjindan.bianhao, xinjin.get_xiangmu_gbk,
-                xinjin.get_username_gbk, xinjin.user.last_name, xinjin.year,
-                xinjin.month, xinjin.yingfa, xinjin.baoxian, xinjin.gongjijin, xinjin.get_leixing_gbk])
+                             xinjin.get_username_gbk, '="' + xinjin.user.last_name + '"', xinjin.year,
+                             xinjin.month, xinjin.yingfa, xinjin.baoxian, xinjin.gongjijin, xinjin.get_leixing_gbk])
         return response
 
     return render(request, 'xinjin/xinjin_list.html', {'xinjindan': xinjindan, 'xinjin_list': xinjin_list, })
@@ -107,23 +112,32 @@ def xinjin_list(request, id):
 def all(request):
     year = request.GET.get('year', datetime.now().year)
     month = request.GET.get('month', datetime.now().month)
+    name = request.GET.get('bh', '__')
 
-    xinjin_list = Xinjin.objects.filter(year=year, month=month, status='1').order_by('-dateline')
+    xinjin_list = Xinjin.objects.filter(year=year, month=month, status='1').order_by('-id')
+
+    if not name == '__':
+        xinjin_list = xinjin_list.filter(xinjindan__bianhao__icontains=name)
+
     if request.GET.get('excel'):
         # Create the HttpResponse object with the appropriate CSV header.
         response = HttpResponse(mimetype='text/csv')
         response['Content-Disposition'] = 'attachment; filename="all.csv"'
+        writer = csv.writer(response)
+        writer.writerow([u'序号'.encode('gbk'), u'编号'.encode('gbk'), u'项目'.encode('gbk'),
+                         u'姓名'.encode('gbk'), u'身份证号码'.encode('gbk'), u'年份'.encode('gbk'),
+                         u'月份'.encode('gbk'), u'应发'.encode('gbk'), u'保险'.encode('gbk'), u'公积金'.encode('gbk'),
+                         u'类型'.encode('gbk')])
         for i, xinjin in enumerate(xinjin_list):
-            writer = csv.writer(response)
             setattr(xinjin, 'get_username_gbk', xinjin.user.first_name.encode('gbk'))
             setattr(xinjin, 'get_xiangmu_gbk', xinjin.xinjindan.xiangmu.encode('gbk'))
-            setattr(xinjin, 'get_leixing_gbk', xinjin.leixing.encode('gbk'))
+            setattr(xinjin, 'get_leixing_gbk', xinjin.get_leixing_display().encode('gbk'))
             writer.writerow([i + 1, xinjin.xinjindan.bianhao, xinjin.get_xiangmu_gbk,
-                xinjin.get_username_gbk, xinjin.user.last_name, xinjin.year,
-                xinjin.month, xinjin.yingfa, xinjin.baoxian, xinjin.gongjijin, xinjin.get_leixing_gbk])
+                             xinjin.get_username_gbk, '="' + xinjin.user.last_name + '"', xinjin.year,
+                             xinjin.month, xinjin.yingfa, xinjin.baoxian, xinjin.gongjijin, xinjin.get_leixing_gbk])
         return response
 
-    return render(request, 'xinjin/all.html', {'xinjin_list': xinjin_list})
+    return render(request, 'xinjin/all.html', {'xinjin_list': xinjin_list, 'bh': name})
 
 
 def xinjin_create(request, id):
@@ -169,7 +183,7 @@ def xinjin_update(request, id, xid):
 
 
 def xinjin_delete(request, id, xid):
-    xinjin = get_object_or_404(XinjinDan, pk=id)
+    xinjin = get_object_or_404(Xinjin, pk=xid)
     xinjin.delete()
     return HttpResponseRedirect(reverse('xinjin_list', args=[id]))
 
@@ -182,3 +196,63 @@ def xinjin_valid(request, id, xid):
         xinjin.status = "0"
     xinjin.save()
     return HttpResponseRedirect(reverse('xinjin_list', args=[id]))
+
+
+def xinjin_upload(request, id):
+    xinjindan = get_object_or_404(XinjinDan, pk=id)
+
+    err = []
+    this_month = datetime.now().month
+
+    if request.method == 'POST':
+        month = request.POST.get('month', None)
+        year = request.POST.get('year', None)
+        f = request.FILES.get('file', None)
+        import os
+        if month and year and f:
+            des_path = os.path.abspath('.') + '/xinjin/uploads/upload.xls'
+            des_f = open(des_path, "wb")
+            for chunk in f.chunks():
+                des_f.write(chunk)
+            des_f.close()
+
+            bk = xlrd.open_workbook(des_path)
+            sheet = bk.sheet_by_index(0)
+            rows_num = sheet.nrows
+            #cols_num = sheet.ncols
+
+            #title = []
+            #rows = []
+            gs = []
+            for j in range(1, rows_num):
+                try:
+                    g = Xinjin()
+                    g.xinjindan = xinjindan
+                    g.typer = request.user
+                    g.year = datetime.today().year
+                    g.month = datetime.today().month
+                    g.user = User.objects.get(last_name=sheet.cell_value(j, 3))
+                    g.realname = sheet.cell_value(j, 0)
+                    g.yingfa = smart_float(sheet.cell_value(j, 4))
+                    g.baoxian = smart_float(sheet.cell_value(j, 4))
+                    g.gongjijin = smart_float(sheet.cell_value(j, 4))
+                    g.leixing
+                    g.save()
+
+                    gs.append(g)
+                except User.DoesNotExist:
+                    err.append(u'第%s行中身份证号在数据库中找不到对应人员，错误数据%s' % (j + 1, sheet.cell_value(j, 2)))
+
+            if not err:
+                Xinjin.objects.bulk_create(gs)
+        else:
+            err.append(u'表单每项都不能为空')
+        return render(request, 'gongzi/admin/upload.html', {'month': this_month, 'err': err, 'post': True})
+    return render(request, 'gongzi/admin/upload.html', {'month': this_month, 'err': err})
+
+
+def smart_float(f):
+    try:
+        return float(f)
+    except:
+        return 0

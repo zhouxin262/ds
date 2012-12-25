@@ -7,6 +7,7 @@
           <li class="active"><a href="/gongzi/admin/list/">工资列表</a></li>
           <li><a href="/gongzi/admin/create/">添加工资</a></li>
           <li><a href="/gongzi/admin/upload/">上传工资</a></li>
+          <li><a href="/gongzi/admin/bulk_delete/">批量删除</a></li>
         </ul>
     </div>
 </div>
@@ -17,7 +18,35 @@
       <li><a href="#">工资</a> <span class="divider">/</span></li>
       <li class="active">列表</li>
     </ul>
-	<div class="span8">
+    <div class="">
+        <form class="form-inline">
+          <select name="year" id="select_year" class="input-small">
+            <option value="">所有</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+          </select>
+          <select name="month" id="select_month" class="input-small">
+            <option value="">所有</option>
+            <option value="1">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <input id="input_first_name" type="text" name="first_name" class="input-small" placeholder="姓名">
+          <input id="input_xiangmu" type="text" name="xiangmu" class="input-small" placeholder="项目">
+          <button type="submit" class="btn btn-primary">确定</button>
+        </form>
+    </div>
+	<div class="">
 		<ul class="unstyled ul-striped track-list">
 			<table class="table">
 				<tr>
@@ -44,6 +73,12 @@
                     </th>
                     <th>
                         实发
+                    </th>
+                    <th>
+                        备注
+                    </th>
+                    <th>
+                        归类
                     </th>
                     <th>
                         操作
@@ -76,6 +111,12 @@
                         {{gongzi.shifa}}
                     </td>
                     <td>
+                        {{gongzi.memo|default:""}}
+                    </td>
+                    <td>
+                        {{gongzi.guilei|default:""}}
+                    </td>
+                    <td>
                         <a href="/gongzi/admin/{{gongzi.id}}/update/">编辑</a> |
                         <a onclick="javascript:return confirm('您真的确实要删除吗?');" href="/gongzi/admin/{{gongzi.id}}/delete/">删除</a>
                     </td>
@@ -104,45 +145,6 @@
 		    {% endif %}
 		  </ul>
 		</div>
-	</div>
-	<div class="span2">
-		<form class="form-horizontal">
-		<p>
-	      <select name="year" id="select_year">
-	      	<option value="">所有</option>
-	      	<option value="2012">2012</option>
-	      	<option value="2013">2013</option>
-	      	<option value="2014">2014</option>
-	      </select>
-	  	</p>
-		<p>
-	      <select name="month" id="select_month">
-	      	<option value="">所有</option>
-	      	<option value="1">01</option>
-	      	<option value="2">02</option>
-	      	<option value="3">03</option>
-	      	<option value="4">04</option>
-	      	<option value="5">05</option>
-	      	<option value="6">06</option>
-	      	<option value="7">07</option>
-	      	<option value="8">08</option>
-	      	<option value="9">09</option>
-	      	<option value="10">10</option>
-	      	<option value="11">11</option>
-	      	<option value="12">12</option>
-	      </select>
-	  	</p>
-		<p>
-	      <input id="input_first_name" type="text" name="first_name" class="input" placeholder="姓名"> 
-	  	</p>
-		<p>
-	      <input id="input_xiangmu" type="text" name="xiangmu" class="input" placeholder="项目"> 
-	  	</p>
-		<p>
-	      <button type="submit" class="btn btn-primary">确定</button>
-	      <button type="reset" class="btn btn-cancel">重置</button>
-	  	</p>
-		</form>
 	</div>
 </div>
 <script type="text/javascript">

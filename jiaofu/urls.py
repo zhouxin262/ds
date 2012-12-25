@@ -8,5 +8,7 @@ urlpatterns = patterns('',
     url(r'^create/$',  'jiaofu.views.create', name='zixun_create'),
     url(r'^(?P<id>\d+)/$',  'jiaofu.views.view', name='zixun_view'),
     url(r'^(?P<id>\d+)/update/$',  'jiaofu.views.update', name='zixun_update'),
+    url(r'^(?P<id>\d+)/jiejue/$',  'jiaofu.views.jiejue', name='zixun_jiejue'),
     url(r'^(?P<id>\d+)/delete/$',  'jiaofu.views.delete', name='zixun_delete'),
+    url(r'^tongji/$',  'jiaofu.views.tongji', name='zixun_tongji'),
 )

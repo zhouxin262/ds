@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 {%if post%}
-                <div class="span9 alert {%if err%}alert-error{%endif%}">                    
+                <div class="span9 alert {%if err%}alert-error{%endif%}">
                     {%if err%}
                     {{err}}
                     {%else%}
@@ -45,6 +45,12 @@
                         </div>
                       </div>
                       <div class="control-group">
+                        <label class="control-label">身份证</label>
+                        <div class="controls">
+                          <input name="last_name" type="text" placeholder="身份证" value="">
+                        </div>
+                      </div>
+                      <div class="control-group">
                         <label class="control-label">姓名</label>
                         <div class="controls">
                           <input name="first_name" type="text" placeholder="中文姓名">
@@ -55,16 +61,16 @@
                         <div class="controls">
                           <input name="password" type="password" placeholder="6位密码">
                         </div>
-                      </div> 
+                      </div>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-primary">保存</button>
                           <button type="reset" class="btn">重置</button>
-                        </div>                     
+                        </div>
                     </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </body>
 </html>

@@ -3,23 +3,24 @@
 
         <script language="javascript" type="text/javascript">
 
-        function preview() {  
-        var bdhtml=window.document.body.innerHTML;  
-        var sprnstr="<!-- startprint-->";  
-        var eprnstr="<!-- endprint-->";  
-        var prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18,bdhtml.length );  
+        function preview() {
+        var bdhtml=window.document.body.innerHTML;
+        var sprnstr="<!-- startprint-->";
+        var eprnstr="<!-- endprint-->";
+        var prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18,bdhtml.length );
         // alert(  prnhtml );
-        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr)); 
+        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
         // alert(prnhtml);
 
         var prtWin = window.open("","myPrintWin","width=800,height=600,resizable=yes,scrollbars =yes,status=no,toolbar=no,menubar=no,location=no");
         if( prtWin != null )
         {
-        prnhtml = prnhtml.replace(/border=0/g,"border=1");
-        prnhtml = prnhtml.replace(/cellpadding='2'/g,"cellpadding=0");
-        prnhtml = prnhtml.replace(/cellSpacing=1/g,"cellSpacing=0 bordercolorlight=#FFFFFF");
+        // prnhtml = prnhtml.replace(/border=0/g,"border=1");
+        // prnhtml = prnhtml.replace(/cellpadding='2'/g,"cellpadding=0");
+        // prnhtml = prnhtml.replace(/cellSpacing=1/g,"cellSpacing=0 bordercolorlight=#FFFFFF");
         //prtWin.document.body.innerHTML="<table width='700 border=0 align=center  cellpadding=0' cellspacing=0>"+prnhtml+"<\/table>";
-        prtWin.document.write("<html><link href='http://202.112.154.36:8000/cwcx/kfgz/css/wendy_prt.css' rel='stylesheet' type='text/css'><head><title>打印<\/title><\/head><body>");
+        prtWin.document.write("<html><link href='http://202.112.154.36:8000/cwcx/kfgz/css/wendy.css' rel='stylesheet' type='text/css'><head><title>打印<\/title><\/head><body>");
+        prtWin.document.write('<style type="text/css">table.sample {border-width: 0 1px 1px 0;border-spacing: 1px;border-style: outset;border-color: gray;border-collapse: collapse;background-color: white;}table.sample th {border-width: 1px 0px 0px 1px;padding: 4px;border-style: inset;border-color: gray;background-color: ;-moz-border-radius: ;}table.sample td {border-width: 1px 0px 0px 1px;padding: 4px;border-style: inset;border-color: gray;background-color: ;-moz-border-radius: ;}dt {background-color: #C6E2FF;width:100px;font-size:12px;}dd {background-color: #fff;width:150px;font-size:12px;}.dl-horizontal dt {float: left;width: 100px;overflow: hidden;clear: left;text-align: right;text-overflow: ellipsis;white-space: nowrap;}.pager{display: inline-block;border: 1px solid #666;padding: 5px 8px;background: #C6E2FF;}</style>');
         prtWin.document.write(prnhtml);
         prtWin.document.write("<\/body><\/html>");
         prtWin.document.close();
@@ -27,17 +28,40 @@
         prtWin.print();
         }
 
-        } 
+        }
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link href="http://202.112.154.36:8000/cwcx/kfgz/css/wendy.css" rel="stylesheet" type="text/css">
         <link href="http://202.112.154.36:8000/cwcx/kfgz/css/wendy.css" rel="stylesheet" type="text/css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <title>
             工资查询
         </title>
         <style type="text/css">
-dt {background-color: #C6E2FF;width:100px;font-size:12px;}
+        table.sample {
+            border-width: 1px;
+            border-spacing: 1px;
+            border-style: outset;
+            border-color: gray;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        table.sample th {
+            border-width: 1px;
+            padding: 4px;
+            border-style: inset;
+            border-color: gray;
+            background-color: ;
+            -moz-border-radius: ;
+        }
+        table.sample td {
+            border-width: 1px;
+            padding: 4px;
+            border-style: inset;
+            border-color: gray;
+            background-color: ;
+            -moz-border-radius: ;
+        }
+        dt {background-color: #C6E2FF;width:100px;font-size:12px;}
         dd {background-color: #fff;width:150px;font-size:12px;}
         .dl-horizontal dt {
             float: left;
@@ -47,6 +71,12 @@ dt {background-color: #C6E2FF;width:100px;font-size:12px;}
             text-align: right;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        .pager{
+            display: inline-block;
+            border: 1px solid #666;
+            padding: 5px 8px;
+            background: #C6E2FF;
         }
         </style>
     </head>
@@ -68,42 +98,16 @@ dt {background-color: #C6E2FF;width:100px;font-size:12px;}
                     <td width="15%" bgcolor="#C6E2FF">
                         <!-- <input name="Style" type="radio" value="2" onclick="onChnageStyle(this);"> 表单形式 -->
                     </td>
-                    <td width="30%" bgcolor="#C6E2FF">
-                        <a href="#">选择年份&nbsp;</a> <select name="queryYear" onchange="onSelectChange();">
-                            <option value='0000'>
-                                最近12个月
+                    <td width="30%" bgcolor="#C6E2FF" id="querybox">
+                        选择年份&nbsp;
+                        <select name="queryYear" id="queryYear" onchange="onSelectChange();">
+                            {% for year in years %}
+                            <option value='{{year.0}}' {% ifequal y year.0 %}selected{% endifequal %}>
+                                {{year.1}}
                             </option>
-                            <option value='2012' selected>
-                                2012
-                            </option>
-                            <option value='2011'>
-                                2011
-                            </option>
-                            <option value='2010'>
-                                2010
-                            </option>
-                            <option value='2009'>
-                                2009
-                            </option>
-                            <option value='2008'>
-                                2008
-                            </option>
-                            <option value='2007'>
-                                2007
-                            </option>
-                            <option value='2006'>
-                                2006
-                            </option>
-                            <option value='2005'>
-                                2005
-                            </option>
-                            <option value='2004'>
-                                2004
-                            </option>
-                            <option value='9999'>
-                                全部月份
-                            </option>
+                            {% endfor %}
                         </select>
+                        <a href="/gongzi/query/" id="superquery">高级查询</a>
                     </td>
                     <td width="15%" bgcolor="#C6E2FF">
                         <!-- <a href="#" onclick="onQueryPanelClose('show','queryPanel');"><img src="http://202.112.154.36:8000/cwcx/images/gong.gif" width="80" height="20" border="0"></a> -->
@@ -116,18 +120,20 @@ dt {background-color: #C6E2FF;width:100px;font-size:12px;}
                     </td>
                 </tr>
             </table>
-        </form><!-- startprint-->
+        </form>
+        <!-- startprint-->
         {% regroup gs by year as year_list %}
         {% for year in year_list%}
         {% regroup year.list by month as month_list %}
         {%for month in month_list %}
+
         <h2>
-            {{year.grouper}}年{{month.grouper}}月工资明细
+            {{year.grouper}}年{{month.grouper}}月工资明细 <span style="font-size:12px;font-weight:normal;color:red">(备注中为学校代发的其税金、实发等请各位老师查看学校工资系统中相应的数据)</span>
         </h2>
-        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+        <table width="100%" class="sample">
             <tbody>
                 <tr>
-                    <th bgcolor="#C6E2FF" width="100">
+                    <th bgcolor="#C6E2FF" width="200">
                         项目
                     </th>
                     <th bgcolor="#C6E2FF" width="100">
@@ -145,61 +151,138 @@ dt {background-color: #C6E2FF;width:100px;font-size:12px;}
                     <th bgcolor="#C6E2FF" width="100">
                         实发
                     </th>
+                    <th bgcolor="#C6E2FF" width="100">
+                        备注
+                    </th>
                 </tr>
                 {%for gongzi in month.list%}
                 <tr class="gongzi_{{year.grouper}}{{month.grouper}}">
-                    <td bgcolor="#C6E2FF" width="100">
-                        {{gongzi.xiangmu}}
+                    <td bgcolor="#C6E2FF" width="200" align='right'>
+                        {{gongzi.xiangmu|truncatechars:18}}
                     </td>
                     <td class="yingfa" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.yingfa}}
+                        {{gongzi.yingfa|floatformat:2}}
                     </td>
                     <td class="baoxian" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.baoxian}}
+                        {{gongzi.baoxian|floatformat:2}}
                     </td>
                     <td class="gongjijin" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.gongjijin}}
+                        {{gongzi.gongjijin|floatformat:2}}
                     </td>
                     <td class="shuijin" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.shuijin}}
+                        {{gongzi.shuijin|floatformat:2}}
                     </td>
                     <td class="shifa" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.shifa}}
+                        {{gongzi.shifa|floatformat:2}}
+                    </td>
+                    <td class="beizhu" bgcolor="#F2F2F2" width="100">
+                        {{gongzi.memo|default:""}}
                     </td>
                 </tr>
                 {%endfor%}
                 <tr class="gongzi_huizong" data-id="gongzi_{{year.grouper}}{{month.grouper}}">
-                    <td bgcolor="#C6E2FF" width="100">
+                    <td bgcolor="#C6E2FF" width="200" align='right'>
                         合计
                     </td>
                     <td class="yingfa" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.yingfa}}
+                        0
                     </td>
                     <td class="baoxian" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.baoxian}}
+                        0
                     </td>
                     <td class="gongjijin" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.gongjijin}}
+                        0
                     </td>
                     <td class="shuijin" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.shuijin}}
+                        0
                     </td>
                     <td class="shifa" bgcolor="#F2F2F2" width="100">
-                        {{gongzi.shifa}}
+                        0
+                    </td>
+                    <td class="beizhu" bgcolor="#F2F2F2" width="100">
+
                     </td>
                 </tr>
             </tbody>
         </table>
+        <br/>
         {%endfor%}
+
         {%endfor%}
-        <p>
-            &nbsp;
+
+        <h2>
+            本页合计
+        </h2>
+        <table width="100%" class="sample">
+            <tr>
+                <th bgcolor="#C6E2FF" width="200">
+                    项目
+                </th>
+                <th bgcolor="#C6E2FF" width="100">
+                    应发
+                </th>
+                <th bgcolor="#C6E2FF" width="100">
+                    保险
+                </th>
+                <th bgcolor="#C6E2FF" width="100">
+                    公积金
+                </th>
+                <th bgcolor="#C6E2FF" width="100">
+                    税金
+                </th>
+                <th bgcolor="#C6E2FF" width="100">
+                    实发
+                </th>
+                <th class="beizhu" bgcolor="#F2F2F2" width="100">
+
+                </th>
+            </tr>
+            <tr class="total" data-id="">
+                <td bgcolor="#C6E2FF" width="200" align='right'>
+                    合计
+                </td>
+                <td class="yingfa" bgcolor="#F2F2F2" width="100">
+                </td>
+                <td class="baoxian" bgcolor="#F2F2F2" width="100">
+                </td>
+                <td class="gongjijin" bgcolor="#F2F2F2" width="100">
+                </td>
+                <td class="shuijin" bgcolor="#F2F2F2" width="100">
+                </td>
+                <td class="shifa" bgcolor="#F2F2F2" width="100">
+                </td>
+                <td class="beizhu" bgcolor="#F2F2F2" width="100">
+                </td>
+            </tr>
+        </table>
+        <!-- endprint-->
+        <p style="float:right"><a class="pager" href="{{prev}}">上一页</a>   <a class="pager" href="{{next}}">下一页</a>
         </p><!-- endprint-->
         <script type="text/javascript">
+
+        function formatFloat(src, pos)
+        {
+            return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);
+        }
+
         $(document).ready(function(){
+            $("#queryYear").change(function(){
+                document.location.href = '?y=' + $("#queryYear").val();
+            });
+
+            var total_yingfa = 0;
+            var total_baoxian = 0;
+            var total_gongjijin = 0;
+            var total_shuijin = 0;
+            var total_shifa = 0;
+
             $(".gongzi_huizong").each(function(){
                 var thisid = $(this).attr('data-id');
-                var yingfa =0, baoxian=0, gongjijin=0, shuijin=0, shifa=0;
+                var yingfa =0;
+                var baoxian=0;
+                var gongjijin=0;
+                var shuijin=0;
+                var shifa=0;
                 $('.'+thisid).each(function(){
                     yingfa += parseFloat($(this).find('.yingfa').text());
                     baoxian += parseFloat($(this).find('.baoxian').text());
@@ -207,12 +290,26 @@ dt {background-color: #C6E2FF;width:100px;font-size:12px;}
                     shuijin += parseFloat($(this).find('.shuijin').text());
                     shifa += parseFloat($(this).find('.shifa').text());
                 });
-                $(this).find('.yingfa').html(yingfa);
-                $(this).find('.baoxian').html(baoxian);
-                $(this).find('.gongjijin').html(gongjijin);
-                $(this).find('.shuijin').html(shuijin);
-                $(this).find('.shifa').html(shifa);
+                $(this).find('.yingfa').html(formatFloat(yingfa, 2));
+                $(this).find('.baoxian').html(formatFloat(baoxian, 2));
+                $(this).find('.gongjijin').html(formatFloat(gongjijin, 2));
+                $(this).find('.shuijin').html(formatFloat(shuijin, 2));
+                $(this).find('.shifa').html(formatFloat(shifa, 2));
+                total_yingfa += yingfa;
+                total_baoxian += baoxian;
+                total_gongjijin += gongjijin;
+                total_shuijin += shuijin;
+                total_shifa += shifa;
             });
+
+
+            $('.total').find('.yingfa').html(formatFloat(total_yingfa, 2));
+            $('.total').find('.baoxian').html(formatFloat(total_baoxian, 2));
+            $('.total').find('.gongjijin').html(formatFloat(total_gongjijin, 2));
+            $('.total').find('.shuijin').html(formatFloat(total_shuijin, 2));
+            $('.total').find('.shifa').html(formatFloat(total_shifa, 2));
+
+            $(".pager[href=#]").hide();
         });
         </script>
     </body>
