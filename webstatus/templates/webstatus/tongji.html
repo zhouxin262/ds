@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>状态记录</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/demo_table.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <SCRIPT LANGUAGE="Javascript" SRC="{{ STATIC_URL }}js/FusionCharts.js"></SCRIPT>
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="row">
+                <img name="rk_r1_c1" src="http://dis.bjtu.edu.cn/images/rk_r1_c1.jpg" width="126" height="110" border="0" alt="">
+                <img name="rk_r1_c2" src="http://dis.bjtu.edu.cn/images/rk_r1_c2.jpg" width="469" height="110" border="0" alt="">
+            </div>
+            <div class="row" style="margin: 15px 0">
+                <div class="span2">
+                    <div class="well" style="padding: 8px 0">
+                        <ul class="nav nav-list">
+                          <li class="nav-header">状态记录</li>
+                          <li><a href="/webstatus/create/">添加状态</a></li>
+                          <li><a href="/webstatus/list/">状态列表</a></li>
+                          <li class="active"><a href="/webstatus/tongji/">统计</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span9">
+                    <!--<div class="pull-right" style="margin-top:3px">
+                        <form class="form-search">
+                            <div class="input-append">
+                                <input name="fn" type="text" class="span2 search-query">
+                                <button type="submit" class="btn">查找</button>
+                            </div>
+                        </form>
+                    </div>-->
+                    <ul class="breadcrumb">
+                      <li><a href="#">状态记录</a> <span class="divider">/</span></li>
+                      <li class="active">列表</li>
+                    </ul>
+                    <p>
+        <form>
+        <input type="text" name="s" value="{{s}}" class="input-small"/> - <input type="text" name="e" value="{{e}}" class="input-small"/>
+        <input type="submit" class="btn" value="统计" />
+    </form>
+    </p>
+    <table>
+        <tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            教师工作室状态
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t1 %}
+                <tr>
+                    <td >
+                        {{r.jsgzs}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart1" ></div></td>
+            <td><div id="chart4" ></div></td>
+        </tr>
+        <tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            学生工作室状态
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t2 %}
+                <tr>
+                    <td >
+                        {{r.xsgzs}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart2" ></div></td>
+            <td><div id="chart5" ></div></td>
+        </tr>
+        <tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            在线测试状态
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t3 %}
+                <tr>
+                    <td >
+                        {{r.zxcs}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart3" ></div></td>
+            <td><div id="chart6" ></div></td>
+        </tr><tr>
+            <td>
+            <table id="datatable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            交互课堂状态
+                        </th>
+                        <th>
+                            总数
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in t4 %}
+                <tr>
+                    <td >
+                        {{r.jhkt}}
+                    </td>
+                    <td>
+                        {{r.c}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </td>
+            <td><div id="chart7" ></div></td>
+            <td><div id="chart8" ></div></td>
+        </tr>
+    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+var xmlData="<graph>";
+{% for r in t1 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.jsgzs}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart1");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart4");
+
+var xmlData="<graph>";
+{% for r in t2 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.xsgzs}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart2");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart5");
+
+var xmlData="<graph>";
+{% for r in t3 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.zxcs}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart3");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart6");
+
+var xmlData="<graph>";
+{% for r in t4 %}
+    xmlData+="<set value='{{r.c|default:0}}' name = '{{r.jhkt}}'/>";
+{% endfor %}
+xmlData+="</graph>";
+var chart = new FusionCharts("{{ STATIC_URL }}flash/FCF_Column3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart7");
+var chart = new FusionCharts("{{ STATIC_URL }}flash/Pie3D.swf", "chartId", "300", "200", "0", "1");
+chart.setDataXML(xmlData);
+chart.setTransparent(true);
+chart.render("chart8");
+</script>
+</body>
+</html>

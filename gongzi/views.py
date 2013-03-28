@@ -24,10 +24,16 @@ def home(request):
             year = y
 
         page = int(request.GET.get('page', 0))
-
-        m1 = datetime.now().month - page * 3
-        m2 = datetime.now().month - 1 - page * 3
-        m3 = datetime.now().month - 2 - page * 3
+        last_month = datetime.now().month
+        try:
+            if int(year) < datetime.now().year:
+                last_month = 12
+        except:
+            pass
+        
+        m1 = last_month - page * 3
+        m2 = last_month - 1 - page * 3
+        m3 = last_month - 2 - page * 3
 
         if year:
             args = {'year': year, 'month__in': [m1, m2, m3], 'user': request.user}

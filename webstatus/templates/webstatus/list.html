@@ -22,6 +22,7 @@
                           <li class="nav-header">状态记录</li>
                           <li><a href="/webstatus/create/">添加状态</a></li>
                           <li class="active"><a href="/webstatus/list/">状态列表</a></li>
+                          <li><a href="/webstatus/tongji/">统计</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,6 +39,7 @@
                       <li><a href="#">状态记录</a> <span class="divider">/</span></li>
                       <li class="active">列表</li>
                     </ul>
+                    <p class="pull-right"><a href="?excel=1&bh={{bh}}" class="btn">导出</a></p>
                     <table id="datatable" class="table table-bordered " style="">
                         <thead>
                         <tr>
@@ -84,6 +86,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    {% comment %}
                     <div class="pagination pagination-right">
                       <ul>
                         {% if user_list.has_previous %}
@@ -102,6 +105,8 @@
                         {% endif %}
                       </ul>
                     </div>
+                    {% endcomment %}
+
                 </div>
             </div>
         </div>
@@ -109,11 +114,21 @@
 <script type="text/javascript">
 $(function(){
     $('#datatable').dataTable({
-        "bPaginate": false,
+        "iDisplayLength": 20,
+        "sPaginationType": "full_numbers",
+        "bPaginate": true,
         "bLengthChange": false,
         "bInfo": false,
         "bAutoWidth": false,
-        "aaSorting": [[ 0 , "desc" ]]
+        "aaSorting": [[ 0 , "desc" ]],
+        "oLanguage": {
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sLast": "最后页",
+            "sPrevious": "上一页",
+            "sNext": "下一页"
+          }
+        }
     });
 });
 </script>

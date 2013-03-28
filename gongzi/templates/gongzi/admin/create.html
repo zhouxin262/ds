@@ -141,6 +141,7 @@ $(function(){
 		$("#select_user").empty()
 		$("#select_user_tmp option[value='__']").appendTo($("#select_user"));
 		$("#select_user_tmp option[data-id*='"+$(this).val()+"']").appendTo($("#select_user"));
+        $("#select_user ").get(0).selectedIndex = 1;
 	});
 	{%if gongzi%}
 	$("#select_year").val("{{gongzi.year}}");

@@ -115,12 +115,23 @@ class MingwenBackend(object):
                     if check_password(password, user.password, setter):
                         return user
                 except:
-                    return None
+                    return User.DoesNotExist
         except User.DoesNotExist:
             try:
                 user = User.objects.get(last_name=username)
+
+                def setter1(raw_password):
+                    user.set_password(raw_password)
+                    user.save()
+
                 if user.password == password:
                     return user
+                else:
+                    try:
+                        if check_password(password, user.password, setter1):
+                            return user
+                    except:
+                        raise User.DoesNotExist
             except User.DoesNotExist:
                 return None
 

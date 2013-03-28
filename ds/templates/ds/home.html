@@ -94,10 +94,10 @@ $('#home').addClass('select');
           <h3>财务信息查询</h3>
           <ul>
             <li><a href="/gongzi/" target="_blank">个人工资查询</a></li>
-            {% if user in usermanagers %}
+            {% if perms.gongzi %}
             <li><a href="/user/list/" target="_blank">用户管理</a></li>
             {%endif%}
-            {% if user in gongzimanagers %}
+            {% if perms.gongzi %}
             <li><a href="/gongzi/admin/list/" target="_blank">工资管理</a></li>
             <li><a href="/xinjin/list/" target="_blank">薪金条管理</a></li>
             {%endif%}

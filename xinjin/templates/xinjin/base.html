@@ -5,10 +5,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/demo_table.css">
-    <!--[if IE 6]><link href="{{ STATIC_URL }}css/ie6.min.css" rel="stylesheet><![endif]-->
+    <!--[if IE 6]><link href="{{ STATIC_URL }}css/ie6.min.css" rel="stylesheet" ><![endif]-->
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
-
 	<title>{%block title%}{%endblock%}</title>
 </head>
 
@@ -27,6 +26,7 @@
 		</div>
 	</div>
 	</div>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script>
     $(function(){if($.browser.msie&&parseInt($.browser.version,10)===6){$('.row div[class^="span"]:last-child').addClass("last-child");$('[class="span"]').addClass("margin-left-20");$(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset");$(":checkbox").addClass("input-checkbox");$('[class^="icon-"], [class=" icon-"]').addClass("icon-sprite");$(".pagination li:first-child a").addClass("pagination-first-child")}});
     </script>

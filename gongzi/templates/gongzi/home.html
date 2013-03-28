@@ -157,7 +157,7 @@
                 </tr>
                 {%for gongzi in month.list%}
                 <tr class="gongzi_{{year.grouper}}{{month.grouper}}">
-                    <td bgcolor="#C6E2FF" width="200" align='right'>
+                    <td bgcolor="#C6E2FF" width="200" align='right' title="{{gongzi.xiangmu}}">
                         {{gongzi.xiangmu|truncatechars:18}}
                     </td>
                     <td class="yingfa" bgcolor="#F2F2F2" width="100">

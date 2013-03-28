@@ -1,5 +1,5 @@
 #coding=utf-8
-import xlrd
+# import xlrd
 import csv
 from datetime import datetime
 
@@ -100,7 +100,7 @@ def xinjin_list(request, id):
         for i, xinjin in enumerate(xinjin_list):
             setattr(xinjin, 'get_username_gbk', xinjin.user.first_name.encode('gbk'))
             setattr(xinjin, 'get_xiangmu_gbk', xinjin.xinjindan.xiangmu.encode('gbk'))
-            setattr(xinjin, 'get_leixing_gbk', xinjin.get_leixing_display().encode('gbk'))
+            setattr(xinjin, 'get_leixing_gbk', xinjin.leixing.encode('gbk'))
             writer.writerow([i + 1, xinjin.xinjindan.bianhao, xinjin.get_xiangmu_gbk,
                              xinjin.get_username_gbk, '="' + xinjin.user.last_name + '"', xinjin.year,
                              xinjin.month, xinjin.yingfa, xinjin.baoxian, xinjin.gongjijin, xinjin.get_leixing_gbk])
@@ -131,7 +131,7 @@ def all(request):
         for i, xinjin in enumerate(xinjin_list):
             setattr(xinjin, 'get_username_gbk', xinjin.user.first_name.encode('gbk'))
             setattr(xinjin, 'get_xiangmu_gbk', xinjin.xinjindan.xiangmu.encode('gbk'))
-            setattr(xinjin, 'get_leixing_gbk', xinjin.get_leixing_display().encode('gbk'))
+            setattr(xinjin, 'get_leixing_gbk', xinjin.leixing.encode('gbk'))
             writer.writerow([i + 1, xinjin.xinjindan.bianhao, xinjin.get_xiangmu_gbk,
                              xinjin.get_username_gbk, '="' + xinjin.user.last_name + '"', xinjin.year,
                              xinjin.month, xinjin.yingfa, xinjin.baoxian, xinjin.gongjijin, xinjin.get_leixing_gbk])
@@ -183,7 +183,7 @@ def xinjin_update(request, id, xid):
 
 
 def xinjin_delete(request, id, xid):
-    xinjin = get_object_or_404(Xinjin, pk=xid)
+    xinjin = get_object_or_404(XinjinDan, pk=id)
     xinjin.delete()
     return HttpResponseRedirect(reverse('xinjin_list', args=[id]))
 
@@ -196,63 +196,3 @@ def xinjin_valid(request, id, xid):
         xinjin.status = "0"
     xinjin.save()
     return HttpResponseRedirect(reverse('xinjin_list', args=[id]))
-
-
-def xinjin_upload(request, id):
-    xinjindan = get_object_or_404(XinjinDan, pk=id)
-
-    err = []
-    this_month = datetime.now().month
-
-    if request.method == 'POST':
-        month = request.POST.get('month', None)
-        year = request.POST.get('year', None)
-        f = request.FILES.get('file', None)
-        import os
-        if month and year and f:
-            des_path = os.path.abspath('.') + '/xinjin/uploads/upload.xls'
-            des_f = open(des_path, "wb")
-            for chunk in f.chunks():
-                des_f.write(chunk)
-            des_f.close()
-
-            bk = xlrd.open_workbook(des_path)
-            sheet = bk.sheet_by_index(0)
-            rows_num = sheet.nrows
-            #cols_num = sheet.ncols
-
-            #title = []
-            #rows = []
-            gs = []
-            for j in range(1, rows_num):
-                try:
-                    g = Xinjin()
-                    g.xinjindan = xinjindan
-                    g.typer = request.user
-                    g.year = datetime.today().year
-                    g.month = datetime.today().month
-                    g.user = User.objects.get(last_name=sheet.cell_value(j, 3))
-                    g.realname = sheet.cell_value(j, 0)
-                    g.yingfa = smart_float(sheet.cell_value(j, 4))
-                    g.baoxian = smart_float(sheet.cell_value(j, 4))
-                    g.gongjijin = smart_float(sheet.cell_value(j, 4))
-                    g.leixing
-                    g.save()
-
-                    gs.append(g)
-                except User.DoesNotExist:
-                    err.append(u'第%s行中身份证号在数据库中找不到对应人员，错误数据%s' % (j + 1, sheet.cell_value(j, 2)))
-
-            if not err:
-                Xinjin.objects.bulk_create(gs)
-        else:
-            err.append(u'表单每项都不能为空')
-        return render(request, 'gongzi/admin/upload.html', {'month': this_month, 'err': err, 'post': True})
-    return render(request, 'gongzi/admin/upload.html', {'month': this_month, 'err': err})
-
-
-def smart_float(f):
-    try:
-        return float(f)
-    except:
-        return 0
