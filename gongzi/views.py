@@ -90,7 +90,7 @@ def upload(request):
         f = request.FILES.get('file', None)
         import os
         if month and year and f:
-            des_path = os.path.abspath('.') + '/django/ds/gongzi/uploads/upload.xls'
+            des_path = os.path.abspath('.') + '/gongzi/uploads/upload.xls'
             des_f = open(des_path, "wb")
             for chunk in f.chunks():
                 des_f.write(chunk)
